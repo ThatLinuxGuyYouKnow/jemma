@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "gemini code"
+name = "gemini-code"
 version = "0.1.0"
 description = "Like Claude Code, but its free"
 authors = [{name = "Alabi Ayobami", email = "arocket04@gmail.com"}]
@@ -23,11 +23,8 @@ classifiers = [
 ]
 
 [project.scripts]
-autodoc = "gemini-code.main:main"
-autodoc-config = "gemini-code.config:configure_api_key"
+gemini-code = "gemini_code.main:main"
+gemini-configure = "gemini_code.config:configure_api_key"
 
 [tool.setuptools]
-packages = ["gemini-code"]
-
- 
-
+packages = ["gemini_code"]

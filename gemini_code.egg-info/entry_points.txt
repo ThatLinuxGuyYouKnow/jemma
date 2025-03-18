@@ -1,0 +1,3 @@
+[console_scripts]
+gemini-code = gemini_code.main:main
+gemini-configure = gemini_code.config:configure_api_key
