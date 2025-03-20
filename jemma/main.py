@@ -1,5 +1,5 @@
 import os
-from fileSpitter import spitAllFiles
+from .fileSpitter import spitAllFiles
 
 def main():
  print('hey!')

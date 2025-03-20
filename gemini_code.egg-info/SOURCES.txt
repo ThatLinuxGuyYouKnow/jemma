@@ -1,8 +1,0 @@
-pyproject.toml
-gemini_code/main.py
-gemini_code.egg-info/PKG-INFO
-gemini_code.egg-info/SOURCES.txt
-gemini_code.egg-info/dependency_links.txt
-gemini_code.egg-info/entry_points.txt
-gemini_code.egg-info/requires.txt
-gemini_code.egg-info/top_level.txt
