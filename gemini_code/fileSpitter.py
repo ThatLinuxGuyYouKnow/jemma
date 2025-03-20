@@ -10,10 +10,3 @@ def spitAllFiles(files):
    elif os.path.isfile:
     print(file)
  
-
-def main():
- print('hey!')
- files = os.listdir()
- spitAllFiles(files)
-
- 
