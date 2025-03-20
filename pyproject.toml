@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "gemini-code"
+name = "jemma"
 version = "0.1.0"
 description = "Like Claude Code, but its free"
 authors = [{name = "Alabi Ayobami", email = "arocket04@gmail.com"}]
@@ -23,8 +23,8 @@ classifiers = [
 ]
 
 [project.scripts]
-gemini-code = "gemini_code.main:main"
-gemini-configure = "gemini_code.config:configure_api_key"
+gemini-code = "jemma.main:main"
+gemini-configure = "jemma.config:configure_api_key"
 
 [tool.setuptools]
-packages = ["gemini_code"]
+packages = ["jemma"]
