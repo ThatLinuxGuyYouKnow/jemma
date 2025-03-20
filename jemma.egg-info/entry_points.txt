@@ -1,0 +1,3 @@
+[console_scripts]
+gemini-code = jemma.main:main
+gemini-configure = jemma.config:configure_api_key
