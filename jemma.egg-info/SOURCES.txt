@@ -1,4 +1,5 @@
 pyproject.toml
+jemma/config.py
 jemma/fileSpitter.py
 jemma/main.py
 jemma.egg-info/PKG-INFO
