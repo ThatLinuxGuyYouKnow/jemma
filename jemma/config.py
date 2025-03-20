@@ -7,7 +7,7 @@ def configure_api_key():
     
     if api_key:
         # Create config directory if it doesn't exist
-        config_dir = Path.home() / ".autodoc"
+        config_dir = Path.home() / ".jemma"
         os.makedirs(config_dir, exist_ok=True)
         
         # Write API key to config file

@@ -1,3 +1,3 @@
 [console_scripts]
-jemma-code = jemma.main:main
+jemma = jemma.main:main
 jemma-configure = jemma.config:configure_api_key
