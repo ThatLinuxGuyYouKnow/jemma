@@ -1,12 +1,15 @@
 import requests
 import json
 
-def explainCode(prompt: str, apikey: str, files: str):
+def explainCode(directoryStructure: str, apikey: str, files: str):
+    if not apikey or not directoryStructure or files:
+        print('somethings missing')
+        breakpoint
     payload = {
         "contents": [
             {
                 "parts": [
-                    {"text": prompt + files}
+                    {"text": 'Explain the following codebase, mentioning frameworks, languages, critical operating logic, and  only if you find any, critical bugs' + 'Directory Structure'+directoryStructure+'Content: '+ files}
                 ]
             }
         ]

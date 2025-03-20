@@ -2,6 +2,7 @@ import argparse
 import os
 from pathlib import Path
 from .fileSpitter import spitAllFiles
+from .explainCodebase import explainCode
 def get_api_key():
     # First check environment variable
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -44,10 +45,20 @@ def main():
      parser = argparse.ArgumentParser(description="Get coding help right in your terminal!")
      parser.add_argument("-e", "--explain", action="store_true", help="Explain this repository, provide an overview of critical functions and/or views")
      parser.add_argument("output", nargs="?", default="README.md", help="Output file path (default: README.md)")
-    
+     content = get_files_content()
      args = parser.parse_args()
-     print('hey!')
-     files = os.listdir()
-     spitAllFiles(files)
+
+     if args.explain:
+      if not get_api_key():
+          print('Please run jemma-configure to set up your api key')
+      print(get_api_key())
+      print('Parsing Codebase....')
+      files = get_files_content()
+      print(files)
+      path = os.getcwd() 
+      dc = os.listdir(path)
+      print(dc)
+      ds = spitAllFiles(dc)
+      explainCode(directoryStructure=ds,apikey=get_api_key(), files=content  )
 
  
