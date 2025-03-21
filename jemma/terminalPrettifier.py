@@ -5,4 +5,13 @@ init(autoreset=True)
 
 
 def responseFormatter(text: str):
-    formattedText =  text.replace('**',Style.BRIGHT + Fore.YELLOW)
+    """Add colors to different response sections"""
+    # Color code patterns
+    formatted = text.replace('**', Style.BRIGHT + Fore.YELLOW)  # Bold text
+    formatted = formatted.replace('*', Fore.CYAN)              # Italics
+    formatted = formatted.replace('`', Fore.GREEN)             # Code blocks
+    
+    # Section headers
+    formatted = formatted.replace('Framework:', "\n" + Fore.MAGENTA + "Framework:")
+    formatted = formatted.replace('Critical Logic:', "\n" + Fore.MAGENTA + "Critical Logic:")
+    formatted = formatted.replace('Potential Issues:', "\n" + Fore.RED + "Potential Issues:")

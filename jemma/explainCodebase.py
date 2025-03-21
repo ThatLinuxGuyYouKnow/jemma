@@ -1,6 +1,8 @@
 import requests
 import json
 
+from jemma.terminalPrettifier import responseFormatter
+
 def explainCode(directoryStructure: str, apikey: str, files: str):
     if not apikey or not directoryStructure or not files:
         print('somethings missing')
@@ -25,6 +27,7 @@ def explainCode(directoryStructure: str, apikey: str, files: str):
     
     if 'candidates' in response_data and len(response_data['candidates']) > 0:
         response=  response_data['candidates'][0]['content']['parts'][0]['text']
-        print(response)
+        
+        print(responseFormatter(response))
     else:
         return f"Error generating documentation: {response_data.get('error', 'Unknown error')}"
