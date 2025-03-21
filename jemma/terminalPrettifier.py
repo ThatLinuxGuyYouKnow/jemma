@@ -15,3 +15,4 @@ def responseFormatter(text: str):
     formatted = formatted.replace('Framework:', "\n" + Fore.MAGENTA + "Framework:")
     formatted = formatted.replace('Critical Logic:', "\n" + Fore.MAGENTA + "Critical Logic:")
     formatted = formatted.replace('Potential Issues:', "\n" + Fore.RED + "Potential Issues:")
+    return formatted

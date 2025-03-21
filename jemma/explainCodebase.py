@@ -24,10 +24,13 @@ def explainCode(directoryStructure: str, apikey: str, files: str):
     )
     
     response_data = response.json()
-    
+ 
+    if response.status_code != 200:
+        print (str(response.status_code))
     if 'candidates' in response_data and len(response_data['candidates']) > 0:
         response=  response_data['candidates'][0]['content']['parts'][0]['text']
-        
+        if response == None:
+            print('response is empty')
         print(responseFormatter(response))
     else:
         return f"Error generating documentation: {response_data.get('error', 'Unknown error')}"
