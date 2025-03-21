@@ -2,7 +2,7 @@ import requests
 import json
 
 def explainCode(directoryStructure: str, apikey: str, files: str):
-    if not apikey or not directoryStructure or files:
+    if not apikey or not directoryStructure or not files:
         print('somethings missing')
         breakpoint
     payload = {
@@ -24,6 +24,7 @@ def explainCode(directoryStructure: str, apikey: str, files: str):
     response_data = response.json()
     
     if 'candidates' in response_data and len(response_data['candidates']) > 0:
-        return response_data['candidates'][0]['content']['parts'][0]['text']
+        response=  response_data['candidates'][0]['content']['parts'][0]['text']
+        print(response)
     else:
         return f"Error generating documentation: {response_data.get('error', 'Unknown error')}"

@@ -51,13 +51,13 @@ def main():
      if args.explain:
       if not get_api_key():
           print('Please run jemma-configure to set up your api key')
-      print(get_api_key())
+     
       print('Parsing Codebase....')
       files = get_files_content()
-      print(files)
+       
       path = os.getcwd() 
       dc = os.listdir(path)
-      print(dc)
+   
       ds = spitAllFiles(dc)
       explainCode(directoryStructure=ds,apikey=get_api_key(), files=content  )
 
