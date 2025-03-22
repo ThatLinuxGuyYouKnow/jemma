@@ -5,8 +5,8 @@ from jemma.terminalPrettifier import responseFormatter
 
 def explainCode(directoryStructure: str, apikey: str, files: str):
     if not apikey or not directoryStructure or not files:
-        print('somethings missing')
-        breakpoint
+        print('somethings wrong here')
+        quit()
     payload = {
         "contents": [
             {
