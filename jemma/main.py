@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 from .fileSpitter import spitAllFiles
 from .explainCodebase import explainCode
+from .startSession import startCodeSession
 def get_api_key():
     # First check environment variable
     api_key = os.environ.get("GEMINI_API_KEY")
@@ -44,9 +45,14 @@ def get_files_content(directory="."):
 def main():
      parser = argparse.ArgumentParser(description="Get coding help right in your terminal!")
      parser.add_argument("-e", "--explain", action="store_true", help="Explain this repository, provide an overview of critical functions and/or views")
+     parser.add_argument("-s", "--start", action="store_true", help="Explain this repository, provide an overview of critical functions and/or views")
      parser.add_argument("output", nargs="?", default="README.md", help="Output file path (default: README.md)")
      content = get_files_content()
      args = parser.parse_args()
+     if args.start:
+         print('Alright lets get started!')
+         firstPrompt = input('>')
+         startCodeSession(firstPrompt)
 
      if args.explain:
       if not get_api_key():

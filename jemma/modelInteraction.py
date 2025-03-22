@@ -1,7 +1,8 @@
 import json
 import requests
 
-from jemma.main import get_api_key
+from jemma.getApiKey import get_api_key
+from jemma.terminalPrettifier import responseFormatter
 def modelInteraction(prompt: str):
     apikey = get_api_key()
     payload = {
@@ -18,5 +19,18 @@ def modelInteraction(prompt: str):
         headers={'Content-Type': "application/json"},
         data=json.dumps(payload)
     )
-    return response
-    
+    response_data = response.json()
+ 
+    if response.status_code != 200:
+        print (str(response.status_code))
+    if 'candidates' in response_data and len(response_data['candidates']) > 0:
+        response=  response_data['candidates'][0]['content']['parts'][0]['text']
+        
+        if response == None:
+            print('response is empty')
+        print(responseFormatter(response))
+        return response
+    else:
+        print('somrthing went wrong')
+        print('Please start a new session')
+        quit()    
