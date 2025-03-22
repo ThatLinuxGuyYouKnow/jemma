@@ -20,8 +20,9 @@ def modelInteraction(prompt: str):
         data=json.dumps(payload)
     )
     response_data = response.json()
- 
-    if response.status_code != 200:
+    print(response_data)
+    (response)
+    if response.status_code != 200: ## remeber to do stuff if it returns 400 for a bad api key
         print (str(response.status_code))
     if 'candidates' in response_data and len(response_data['candidates']) > 0:
         response=  response_data['candidates'][0]['content']['parts'][0]['text']
