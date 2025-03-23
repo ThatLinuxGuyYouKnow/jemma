@@ -4,6 +4,13 @@ import sys
 
 CONFIG_PATH = Path.home() / ".jemma-config.toml"
 
+if CONFIG_PATH.exists():
+        confirm = input("⚠️  Existing configuration found. Overwrite? [y/N] ").lower()
+        if confirm != "y":
+            print("Aborting configuration")
+            sys.exit(0)
+            
+
 def initialize_jemma():
     """Interactive configuration setup for Jemma AI assistant"""
     config = {
@@ -54,11 +61,5 @@ def initialize_jemma():
         print(f"\n❌ Failed to save configuration: {str(e)}")
         sys.exit(1)
 
-if __name__ == "__main__":
-    if CONFIG_PATH.exists():
-        confirm = input("⚠️  Existing configuration found. Overwrite? [y/N] ").lower()
-        if confirm != "y":
-            print("Aborting configuration")
-            sys.exit(0)
-            
-    initialize_jemma()
+
+
