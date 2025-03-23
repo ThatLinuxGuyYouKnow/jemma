@@ -20,3 +20,15 @@ def responseFormatter(text: str):
 def errorText(text: str):
     formatted = Style.BRIGHT + Fore.RED + text
     return formatted
+
+def warningText(text: str):
+    formatted = Style.BRIGHT + Fore.YELLOW + text
+    return formatted
+
+def successText(text: str):
+    formatted = Style.BRIGHT + Fore.GREEN + text
+    return formatted
+
+def colouredText( text: str, colour: str, textStyle: str):
+    formatted = Style.textStyle + Fore.colour + text
+    return formatted
