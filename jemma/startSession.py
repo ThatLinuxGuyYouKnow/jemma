@@ -2,7 +2,7 @@ import os
 import signal
 import sys
 from jemma.modelInteraction import modelInteraction
-from jemma.terminalPrettifier import successText, errorText
+from jemma.utils.terminalPrettifier import successText, errorText
 
 
 def cleanup_and_exit(signum, frame):

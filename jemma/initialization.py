@@ -1,7 +1,7 @@
 import json
 from pathlib import Path
 import sys
-from jemma.terminalPrettifier import successText, errorText
+from jemma.utils.terminalPrettifier import successText, errorText
 
 def initialize_jemma():
     """Interactive configuration setup for Jemma AI assistant"""

@@ -3,7 +3,7 @@ import os
 from pathlib import Path
 
 from jemma.initialization import initialize_jemma
-from .fileSpitter import spitAllFiles
+from .utils.fileSpitter import spitAllFiles
 from .explainCodebase import explainCode
 from .startSession import startCodeSession
 def get_api_key():
