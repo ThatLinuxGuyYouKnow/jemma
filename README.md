@@ -4,6 +4,7 @@
 [![Google Gemini](https://img.shields.io/badge/Google%20Gemini-API-brightgreen)](https://cloud.google.com/vertex-ai/docs/generative-ai/models/gemini)
 [![Colorama](https://img.shields.io/badge/colorama-terminal%20colors-brightgreen)](https://pypi.org/project/colorama/)
 
+![jemma](jemma-1.jpeg)
 
 **Description:** Jemma is a command-line tool that provides code assistance using the Google Gemini API.  It's free and easy to use.
 
