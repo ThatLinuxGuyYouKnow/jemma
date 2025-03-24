@@ -59,7 +59,7 @@ def main():
      if args.initialize:
          if not get_api_key():
              print("You'll need to setup your api key first")
-         initializeJemma()
+         initialize_jemma()
      if args.explain:
       if not get_api_key():
           print('Please run jemma-configure to set up your api key')
