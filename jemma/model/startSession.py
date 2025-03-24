@@ -1,7 +1,7 @@
 import os
 import signal
 import sys
-from jemma.modelInteraction import modelInteraction
+from jemma.model.modelInteraction import modelInteraction
 from jemma.utils.terminalPrettifier import successText, errorText
 
 
@@ -15,20 +15,20 @@ def cleanup_and_exit(signum, frame):
         print(errorText(f"Error cleaning up chat file: {str(e)}"))
     sys.exit(0)
 
-# Register signal handlers for interruption and termination
-signal.signal(signal.SIGINT, cleanup_and_exit)   # Handles Ctrl+C
-signal.signal(signal.SIGTERM, cleanup_and_exit)  # Handles termination signals
+ 
+signal.signal(signal.SIGINT, cleanup_and_exit)    
+signal.signal(signal.SIGTERM, cleanup_and_exit)  
 
 def startCodeSession(firstPrompt: str):
     try:
-        # Write initial user prompt to the chat history file
+        
         with open('.current_chat.txt', "w") as f:
             f.write('USER: ' + firstPrompt + '\n')
         
-        # Get model response
+       
         model_response = modelInteraction(firstPrompt)
         
-        # Append model response to chat history
+   
         if model_response:
             with open('.current_chat.txt', "a") as f:
                 f.write('YOU(MODEL): ' + model_response + '\n')
@@ -46,14 +46,14 @@ def continueChat():
     newPrompt = input('> ')
     
     try:
-        # Read existing chat history
+       
         with open('.current_chat.txt', 'r') as f:
             chatHistory = f.read()
         
-        # Get model response based on history and new prompt
+         
         model_response = modelInteraction(chatHistory + "USER: " + newPrompt)
         
-        # Append new user prompt and model response to chat history
+      
         if model_response:
             with open('.current_chat.txt', 'a') as f:
                 f.write('USER: ' + newPrompt + '\n')

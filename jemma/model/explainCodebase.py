@@ -1,7 +1,7 @@
 import requests
 import json
 
-from jemma.terminalPrettifier import responseFormatter
+from jemma.utils.terminalPrettifier import responseFormatter
 
 def explainCode(directoryStructure: str, apikey: str, files: str):
     if not apikey or not directoryStructure or not files:

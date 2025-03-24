@@ -4,8 +4,8 @@ from pathlib import Path
 
 from jemma.initialization import initialize_jemma
 from .utils.fileSpitter import spitAllFiles
-from .explainCodebase import explainCode
-from .startSession import startCodeSession
+from .model.explainCodebase import explainCode
+from .model.startSession import startCodeSession
 def get_api_key():
     # First check environment variable
     api_key = os.environ.get("GEMINI_API_KEY")
