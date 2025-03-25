@@ -5,6 +5,7 @@ from pathlib import Path
 from jemma.initialization import initialize_jemma
 from jemma.utils.getApiKey import get_api_key
 from jemma.utils.getFilesContent import get_files_content
+from jemma.utils.terminalPrettifier import successText
 from .utils.fileSpitter import spitAllFiles
 from .model.explainCodebase import explainCode
 from .model.startSession import startCodeSession
@@ -17,21 +18,19 @@ def main():
      parser.add_argument("output", nargs="?", default="README.md", help="Output file path (default: README.md)")
      content = get_files_content()
      args = parser.parse_args()
+     apiKey: str = get_api_key()
+     if not apiKey:
+            print("You'll need to setup your api key first to use jemma, Please run "+ successText('jemma-configure'))
      if args.chat:
-         print('Alright lets get started!')
+         print('Hallo!, lets get started!')
          firstPrompt = input('>')
          startCodeSession(firstPrompt)
      if args.initialize:
-         if not get_api_key():
-             print("You'll need to setup your api key first")
+
          initialize_jemma()
      if args.explain:
-      if not get_api_key():
-          print('Please run jemma-configure to set up your api key')
      
       print('Parsing Codebase....')
-      files = get_files_content()
-       
       path = os.getcwd() 
       dc = os.listdir(path)
    
