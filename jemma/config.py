@@ -1,6 +1,8 @@
 import os
 from pathlib import Path
 
+from jemma.utils.terminalPrettifier import colouredText, errorText, successText, warningText
+
 def configure_api_key():
     """Interactive configuration of the Gemini API key."""
     api_key = input("Enter your Gemini API key: ").strip()
@@ -14,11 +16,10 @@ def configure_api_key():
         with open(config_dir / "config", "w") as f:
             f.write(f"GEMINI_API_KEY={api_key}\n")
         
-        print(f"API key saved to {config_dir}/config")
+        print(successText("API key saved to {config_dir}/config"))
+        print(warningText('You should probably run '+ colouredText(text='jemma -init', colour='BLUE', textStyle='BRIGHT')+ warningText(' to set preferences')))
         return True
     else:
-        print("No API key provided. Configuration cancelled.")
+        print(errorText("No API key provided. Configuration cancelled."))
         return False
 
-if __name__ == "__main__":
-    configure_api_key()
