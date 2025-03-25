@@ -40,6 +40,6 @@ def explainCode(directoryStructure: str, apikey: str, files: str):
        print(errorText("An error occured and the model did not return a response"))
  except RequestException:
     print(errorText('You need a working Internet connection to use jemma'))
- except Error as e:
+ except Exception as e:
     print(errorText('an error occured, please try again'))
  
