@@ -16,8 +16,8 @@ def configure_api_key():
         with open(config_dir / "config", "w") as f:
             f.write(f"GEMINI_API_KEY={api_key}\n")
         
-        print(successText("API key saved to {config_dir}/config"))
-        print(warningText('You should probably run '+ colouredText(text='jemma -init', colour='BLUE', textStyle='BRIGHT')+ warningText(' to set preferences')))
+        print(successText(f"API key saved to {config_dir}/config"))
+        print(warningText('You should probably run '+ successText(text='jemma -init',)+ warningText(' to set preferences')))
         return True
     else:
         print(errorText("No API key provided. Configuration cancelled."))
