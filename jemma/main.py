@@ -7,21 +7,6 @@ from jemma.utils.getFilesContent import get_files_content
 from .utils.fileSpitter import spitAllFiles
 from .model.explainCodebase import explainCode
 from .model.startSession import startCodeSession
-def get_api_key():
-    # First check environment variable
-    api_key = os.environ.get("GEMINI_API_KEY")
-    
-    # If not in environment, check config file
-    if not api_key:
-        config_path = Path.home() / ".autodoc" / "config"
-        if config_path.exists():
-            with open(config_path, "r") as f:
-                for line in f:
-                    if line.startswith("GEMINI_API_KEY="):
-                        api_key = line.split("=")[1].strip()
-    
-    return api_key
-
 
 def main():
      parser = argparse.ArgumentParser(description="Get coding help right in your terminal!")

@@ -1,7 +1,7 @@
 import json
 import requests
 
-from jemma.getApiKey import get_api_key
+from jemma.utils.getApiKey import get_api_key
 from jemma.utils.terminalPrettifier import responseFormatter
 def modelInteraction(prompt: str):
     apikey = get_api_key()
