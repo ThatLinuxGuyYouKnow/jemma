@@ -35,6 +35,6 @@ def main():
       dc = os.listdir(path)
    
       ds = spitAllFiles(dc)
-      explainCode(directoryStructure=ds,apikey=get_api_key(), files=content  )
+      explainCode(directoryStructure=ds,apikey=apiKey, files=content  )
 
  

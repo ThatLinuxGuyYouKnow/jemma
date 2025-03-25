@@ -1,11 +1,13 @@
+from configparser import Error
 import requests
 import json
-
-from jemma.utils.terminalPrettifier import responseFormatter
+from requests.exceptions import RequestException
+from jemma.utils.terminalPrettifier import errorText, responseFormatter, warningText
 
 def explainCode(directoryStructure: str, apikey: str, files: str):
+ try :
     if not apikey or not directoryStructure or not files:
-        print('somethings wrong here')
+        print(errorText('somethings wrong here'))
         quit()
     payload = {
         "contents": [
@@ -25,12 +27,19 @@ def explainCode(directoryStructure: str, apikey: str, files: str):
     
     response_data = response.json()
  
+    if response.status_code == 400:
+        print(errorText("Your api key likely isn't valid, run " +warningText("gemma-configure ")+ errorText("to enter a new one")))
+        return None
     if response.status_code != 200:
-        print (str(response.status_code))
+        print(errorText("Something went wrong with your request, try again"))
+        return None
     if 'candidates' in response_data and len(response_data['candidates']) > 0:
         response=  response_data['candidates'][0]['content']['parts'][0]['text']
-        if response == None:
-            print('response is empty')
         print(responseFormatter(response))
     else:
-        return f"Error generating documentation: {response_data.get('error', 'Unknown error')}"
+       print(errorText("An error occured and the model did not return a response"))
+ except RequestException:
+    print(errorText('You need a working Internet connection to use jemma'))
+ except Error as e:
+    print(errorText('an error occured, please try again'))
+ 
