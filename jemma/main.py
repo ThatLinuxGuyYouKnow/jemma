@@ -13,9 +13,10 @@ from .model.startSession import startCodeSession
 
 def main():
      parser = argparse.ArgumentParser(description="Get coding help right in your terminal!")
-     parser.add_argument("-e", "--explain", action="store_true", help="Explain this repository, provide an overview of critical functions and/or views")
+     parser.add_argument("-ex", "--explain", action="store_true", help="Explain this repository, provide an overview of critical functions and/or views")
      parser.add_argument("-ch", "--chat", action="store_true", help="Start an interactive session, no access to codebase")
      parser.add_argument("-init", "--initialize", action="store_true", help="Explain this repository, provide an overview of critical functions and/or views")
+     parser.add_argument("-ed", "--explain", type=str, nargs='+', help="Let Jemma help you fix bugs and add features")
      parser.add_argument("output", nargs="?", default="README.md", help="Output file path (default: README.md)")
      content = get_files_content()
      args = parser.parse_args()
