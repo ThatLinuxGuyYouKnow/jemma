@@ -3,6 +3,7 @@ import os
 from pathlib import Path
 
 from jemma.initialization import initialize_jemma
+from jemma.model.editCode import editCode
 from jemma.utils.getApiKey import get_api_key
 from jemma.utils.getFilesContent import get_files_content
 from jemma.utils.terminalPrettifier import successText
@@ -19,6 +20,9 @@ def main():
      content = get_files_content()
      args = parser.parse_args()
      apiKey: str = get_api_key()
+     path = os.getcwd() 
+     dc = os.listdir(path)
+     ds = spitAllFiles(dc)
      if not apiKey:
             print("You'll need to setup your api key first to use jemma, Please run "+ successText('jemma-configure'))
      if args.chat:
@@ -31,10 +35,9 @@ def main():
      if args.explain:
      
       print('Parsing Codebase....')
-      path = os.getcwd() 
-      dc = os.listdir(path)
    
-      ds = spitAllFiles(dc)
       explainCode(directoryStructure=ds,apikey=apiKey, files=content  )
+     if args.edit:
+         editCode(directoryStructure=ds, fileContents=content, apiKey=apiKey)
 
  
