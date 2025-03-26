@@ -6,7 +6,7 @@ from jemma.initialization import initialize_jemma
 from jemma.model.editCode import editCode
 from jemma.utils.getApiKey import get_api_key
 from jemma.utils.getFilesContent import get_files_content
-from jemma.utils.terminalPrettifier import successText
+from jemma.utils.terminalPrettifier import successText, warningText
 from .utils.fileSpitter import spitAllFiles
 from .model.explainCodebase import explainCode
 from .model.startSession import startCodeSession
@@ -16,7 +16,7 @@ def main():
      parser.add_argument("-ex", "--explain", action="store_true", help="Explain this repository, provide an overview of critical functions and/or views")
      parser.add_argument("-ch", "--chat", action="store_true", help="Start an interactive session, no access to codebase")
      parser.add_argument("-init", "--initialize", action="store_true", help="Explain this repository, provide an overview of critical functions and/or views")
-     parser.add_argument("-ed", "--explain", type=str, nargs='+', help="Let Jemma help you fix bugs and add features")
+     parser.add_argument("-ed", "--edit", type=str, nargs='+', help="Let Jemma help you fix bugs and add features")
      parser.add_argument("output", nargs="?", default="README.md", help="Output file path (default: README.md)")
      content = get_files_content()
      args = parser.parse_args()
@@ -39,6 +39,8 @@ def main():
    
       explainCode(directoryStructure=ds,apikey=apiKey, files=content  )
      if args.edit:
-         editCode(directoryStructure=ds, fileContents=content, apiKey=apiKey)
+         user_prompt = ''.join(args.edit)
+         warningText(user_prompt)
+         editCode(directoryStructure=ds, fileContents=content, userPrompt=user_prompt)
 
  

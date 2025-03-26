@@ -22,8 +22,7 @@ def modelInteraction(prompt: str):
         data=json.dumps(payload)
     )
     response_data = response.json()
-    print(response_data)
-    (response)
+  
     if response.status_code == 400:
        print(errorText("Error occured, Your api key likely isn't valid, run")+warningText(' jemma-configure ')+ errorText('to re-enter your key'))
     if response.status_code != 200:
@@ -38,4 +37,4 @@ def modelInteraction(prompt: str):
  except RequestException:
     print(errorText("You need a working Internet Connection to use jemma"))
  except Exception as e:
-    print(errorText('An unexpected error occured, please try again'))
+    print(errorText('An unexpected error occured, please try again' + str(e)))
