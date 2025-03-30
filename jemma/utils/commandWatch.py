@@ -1,5 +1,5 @@
 import os
 
 
-def watchCommand(functionToRun: function):
+def watchCommand(functionToRun):
    os.system(functionToRun)
