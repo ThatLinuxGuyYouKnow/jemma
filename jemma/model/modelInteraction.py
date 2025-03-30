@@ -8,6 +8,13 @@ def modelInteraction(prompt: str):
  try:
     apikey = get_api_key()
     payload = {
+         "system_instruction": {
+      "parts": [
+        {
+          "text": "You are Jemma, a command line coding assistant. Make sure your responses are always helful, firendly, and concise"
+        }
+      ]
+    },
         "contents": [
             {
                 "parts": [
