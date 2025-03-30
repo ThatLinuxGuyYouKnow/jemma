@@ -5,6 +5,8 @@ init(autoreset=True)
 
 
 def responseFormatter(text: str):
+    if text == None:
+        return ''
     """Add colors to different response sections"""
     # Color code patterns
     formatted = text.replace('**', Style.BRIGHT + Fore.YELLOW)  # Bold text
