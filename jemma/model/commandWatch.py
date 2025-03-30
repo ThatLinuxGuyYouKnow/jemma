@@ -15,7 +15,7 @@ def watchCommand(functionToRun, directoryStructure: str, codeContent: str):
                 text=True
             )
    command_result = result.stdout
-   model_prompt=f""" You are to return a response based on the codebase and resulting terminal output 
+   model_prompt=f""" You are to return a response based on the codebase and resulting terminal output, your response should be user facing
    code content: ${codeContent}
    Directory Structure: ${directoryStructure}
    Terminal Output: ${command_result}"""

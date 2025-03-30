@@ -3,8 +3,9 @@ import os
 from pathlib import Path
 
 from jemma.initialization import initialize_jemma
+from jemma.model.commandWatch import watchCommand
 from jemma.model.editCode import editCode
-from jemma.utils.commandWatch import watchCommand
+ 
 from jemma.utils.getApiKey import get_api_key
 from jemma.utils.getFilesContent import get_files_content
 from jemma.utils.terminalPrettifier import successText, warningText
