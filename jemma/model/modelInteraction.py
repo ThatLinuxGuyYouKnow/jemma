@@ -42,7 +42,7 @@ def modelInteraction(prompt: str):
         return response
     else:
         print(errorText('something went wrong and the model did not return a response'))    
-        quit()    
+        return None  
  except RequestException:
     print(errorText("You need a working Internet Connection to use jemma"))
     return None
