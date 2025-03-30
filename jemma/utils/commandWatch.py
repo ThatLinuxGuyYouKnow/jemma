@@ -2,6 +2,7 @@ import os
 import subprocess
 
 from jemma.model.modelInteraction import modelInteraction
+from jemma.utils.terminalPrettifier import responseFormatter
 
 
 def watchCommand(functionToRun, directoryStructure: str, codeContent: str):
@@ -17,5 +18,5 @@ def watchCommand(functionToRun, directoryStructure: str, codeContent: str):
    code content: ${codeContent}
    Directory Structure: ${directoryStructure}
    Terminal Output: ${command_result}"""
-   modelInteraction(prompt="")
-            print(f"\nCommand output:\n{result.stdout}")
+   model_response = responseFormatter( modelInteraction(model_prompt))
+   print(model_response)
