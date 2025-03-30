@@ -1,17 +1,17 @@
 import os
 
+from jemma.utils.terminalPrettifier import errorText
+
 
 
 def spitAllFiles(paths):
     """Recursively list all files in given directories."""
     for path in paths:
         if os.path.isfile(path) and path[0] != '.':
-            # If it's a file, just print it
-            print(f"File: {os.path.abspath(path)}")
+         
             return os.path.abspath(path)
         elif os.path.isdir(path) and path[0] != '.':
-            # If it's a directory, process its contents
-            print(f"\nDirectory: {os.path.abspath(path)}")
+            
             
             try:
                 with os.scandir(path) as entries:
@@ -20,6 +20,6 @@ def spitAllFiles(paths):
                         spitAllFiles([entry.path])
                         return os.path.abspath(path)
             except PermissionError:
-                print(f"Permission denied: {path}")
+                print(errorText(f"Permission denied: {path}"))
         else:
-            print(f"Invalid path: {path}")
+            print(errorText(f"Invalid path: {path}"))

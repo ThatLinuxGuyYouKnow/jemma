@@ -36,7 +36,7 @@ def main():
         if len(args.watch) < 1:
             warningText("You'll need to give Jemma a command to watch")
         commandToRun = "".join(args.watch)
-        watchCommand(commandToRun)
+        watchCommand(functionToRun=commandToRun, directoryStructure=ds, codeContent=content)
      if args.initialize:
 
          initialize_jemma()

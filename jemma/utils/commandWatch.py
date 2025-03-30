@@ -6,6 +6,7 @@ from jemma.utils.terminalPrettifier import responseFormatter
 
 
 def watchCommand(functionToRun, directoryStructure: str, codeContent: str):
+   print(functionToRun)
    result = subprocess.run(
                 functionToRun.split(),
                 shell=True,
