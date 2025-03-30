@@ -33,9 +33,10 @@ def main():
          firstPrompt = input('>')
          startCodeSession(firstPrompt)
      if args.watch:
-        if args.watch.len() < 1:
+        if len(args.watch) < 1:
             warningText("You'll need to give Jemma a command to watch")
-        watchCommand(args.watch)
+        commandToRun = "".join(args.watch)
+        watchCommand(commandToRun)
      if args.initialize:
 
          initialize_jemma()
