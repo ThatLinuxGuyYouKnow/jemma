@@ -4,6 +4,7 @@ from pathlib import Path
 
 from jemma.initialization import initialize_jemma
 from jemma.model.editCode import editCode
+from jemma.utils.commandWatch import watchCommand
 from jemma.utils.getApiKey import get_api_key
 from jemma.utils.getFilesContent import get_files_content
 from jemma.utils.terminalPrettifier import successText, warningText
@@ -31,6 +32,10 @@ def main():
          print('Hallo!, lets get started!')
          firstPrompt = input('>')
          startCodeSession(firstPrompt)
+     if args.watch:
+        if args.watch.len() < 1:
+            warningText("You'll need to give Jemma a command to watch")
+        watchCommand(args.watch)
      if args.initialize:
 
          initialize_jemma()
