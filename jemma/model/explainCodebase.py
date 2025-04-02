@@ -10,9 +10,11 @@ def explainCode(directoryStructure: str, apikey: str, files: str):
     if not apikey or not directoryStructure or not files:
         print(errorText('somethings wrong here'))
         quit()
-    model_prompt = """"""
+    model_prompt = f"""Explain the following codebase, mentioning frameworks, languages, critical operating logic, and  only if you find any, critical bugs' 
+    - Director Structure := ${directoryStructure}
+    - File Content :=  ${files}"""
  
-    response= modelInteraction()
+    response= modelInteraction(model_prompt)
  
  
     if response.status_code == 400:
