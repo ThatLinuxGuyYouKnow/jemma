@@ -18,7 +18,7 @@ def explainCode(directoryStructure: str, apikey: str, files: str):
             }
         ]
     }
-    
+    response= modelInteraction()
     response = requests.post(
         f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={apikey}",
         headers={'Content-Type': "application/json"},
