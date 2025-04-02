@@ -2,6 +2,7 @@ from configparser import Error
 import requests
 import json
 from requests.exceptions import RequestException
+from jemma.model.modelInteraction import modelInteraction
 from jemma.utils.terminalPrettifier import errorText, responseFormatter, warningText
 
 def explainCode(directoryStructure: str, apikey: str, files: str):
