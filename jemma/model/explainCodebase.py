@@ -16,7 +16,7 @@ def explainCode(directoryStructure: str, apikey: str, files: str):
  
     response= modelInteraction(model_prompt)
     if response == None:
-       print(errorText('Something went wrong'))
+       print(errorText('Something went wrong \n Please try again'))
     print(responseFormatter(response))
  except Exception as e:
   print(errorText('An error occured '+ str(e)))

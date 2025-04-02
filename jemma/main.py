@@ -43,7 +43,7 @@ def main():
          initialize_jemma()
      if args.explain:
      
-      print('Parsing Codebase....')
+      print(warningText('Parsing Codebase....'))
    
       explainCode(directoryStructure=ds,apikey=apiKey, files=content  )
      if args.edit:
