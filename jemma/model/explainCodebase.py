@@ -10,15 +10,8 @@ def explainCode(directoryStructure: str, apikey: str, files: str):
     if not apikey or not directoryStructure or not files:
         print(errorText('somethings wrong here'))
         quit()
-    payload = {
-        "contents": [
-            {
-                "parts": [
-                    {"text": 'Explain the following codebase, mentioning frameworks, languages, critical operating logic, and  only if you find any, critical bugs' + 'Directory Structure'+directoryStructure+'Content: '+ files}
-                ]
-            }
-        ]
-    }
+    model_prompt = """"""
+ 
     response= modelInteraction()
     response = requests.post(
         f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={apikey}",
