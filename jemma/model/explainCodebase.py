@@ -13,13 +13,7 @@ def explainCode(directoryStructure: str, apikey: str, files: str):
     model_prompt = """"""
  
     response= modelInteraction()
-    response = requests.post(
-        f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={apikey}",
-        headers={'Content-Type': "application/json"},
-        data=json.dumps(payload)
-    )
-    
-    response_data = response.json()
+ 
  
     if response.status_code == 400:
         print(errorText("Your api key likely isn't valid, run " +warningText("gemma-configure ")+ errorText("to enter a new one")))
