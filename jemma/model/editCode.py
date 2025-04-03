@@ -11,10 +11,10 @@ def editCode(directoryStructure: str, fileContents: str,  userPrompt:str):
     "For example     {{
       "changes": [
         {{
-          "file": "src/main.py",
+          "file": "absolute_path/main.py",
           "start_line": 46,
           "end_line": 47,
-          "replacement": ["print('Hello Gemini')"]
+          "replacement": ["print('Hello Jemma')"]
         }}
       ],
       "narration": "Updated print statement to fix output"
@@ -24,5 +24,5 @@ def editCode(directoryStructure: str, fileContents: str,  userPrompt:str):
     "Here is the projects directory structure :={directoryStructure}"
     "Here is the file content := {fileContents}
      Remember to return *ONLY* json"""
-    modelResponse: str = modelInteraction(prompt=prompt)
-    print(responseFormatter(modelResponse))
+    modelResponse: str = modelInteraction(prompt=prompt).strip('json')
+    print(responseFormatter(modelResponse["narration"]))
