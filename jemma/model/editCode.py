@@ -11,7 +11,7 @@ def editCode(directoryStructure: str, fileContents: str,  userPrompt:str):
     "For example     {{
       "changes": [
         {{
-          "file": "absolute_path/main.py",
+          "file": "abs",
           "start_line": 46,
           "end_line": 47,
           "replacement": ["print('Hello Jemma')"]
@@ -25,4 +25,14 @@ def editCode(directoryStructure: str, fileContents: str,  userPrompt:str):
     "Here is the file content := {fileContents}
      Remember to return *ONLY* json"""
     modelResponse: str = modelInteraction(prompt=prompt).strip('json')
-    print(responseFormatter(modelResponse["narration"]))
+    print(responseFormatter(modelResponse))
+
+
+def processChanges(filePatches: str):
+    number_of_patches = 0
+    for patch in filePatches and number_of_patches < len(filePatches) and number_of_patches + 1 :
+        start_line: str = filePatches[number_of_patches]['start_line']
+        end_line: str = filePatches[number_of_patches]['start_line']
+        file: str = filePatches[number_of_patches]['file']
+        replacement: str = filePatches[number_of_patches]['replacement']
+    
