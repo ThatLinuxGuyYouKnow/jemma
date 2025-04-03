@@ -22,6 +22,7 @@ def editCode(directoryStructure: str, fileContents: str,  userPrompt:str):
     Using the preceeding instruction, operate on this codebase
     "Here is the users request :={userPrompt}
     "Here is the projects directory structure :={directoryStructure}"
-    "Here is the file content := {fileContents}"""
+    "Here is the file content := {fileContents}
+     Remember to return *ONLY* json"""
     modelResponse: str = modelInteraction(prompt=prompt)
     print(responseFormatter(modelResponse))
