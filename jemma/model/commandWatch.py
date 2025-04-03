@@ -6,6 +6,9 @@ from jemma.utils.terminalPrettifier import responseFormatter, warningText
 
 
 def watchCommand(functionToRun: str, directoryStructure: str, codeContent: str):
+   if not isinstance(functionToRun, str) or len(functionToRun.strip()) < 2:
+        print(warningText("Please provide a valid command for Jemma to watch (minimum 2 characters)"))
+        return None
    print(warningText(f'Jemma is watching {functionToRun}'))
    result = subprocess.run(
                 functionToRun.strip(),
