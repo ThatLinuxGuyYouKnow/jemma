@@ -2,11 +2,11 @@ import os
 import subprocess
 
 from jemma.model.modelInteraction import modelInteraction
-from jemma.utils.terminalPrettifier import responseFormatter
+from jemma.utils.terminalPrettifier import responseFormatter, warningText
 
 
 def watchCommand(functionToRun: str, directoryStructure: str, codeContent: str):
-   print(functionToRun)
+   print(warningText(f'Jemma is watching {functionToRun}'))
    result = subprocess.run(
                 functionToRun.strip(),
                 shell=True,
