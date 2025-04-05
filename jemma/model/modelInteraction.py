@@ -4,26 +4,33 @@ import requests
 from jemma.utils.getApiKey import get_api_key
 from jemma.utils.terminalPrettifier import errorText, warningText
 from requests.exceptions import RequestException 
-def modelInteraction(prompt: str):
+def modelInteraction(prompt: str, isJsonResponse: bool = False):
  try:
-    apikey = get_api_key()
     payload = {
-         "system_instruction": {
-      "parts": [
-        {
-          "text": "You are Jemma, a command line coding assistant. Make sure your responses are always helful, firendly, and concise"
-        }
-      ]
-    },
-        "contents": [
-            {
+            "system_instruction": {
                 "parts": [
-                    {"text": prompt
+                    {
+                        "text": "You are Jemma, a command line coding assistant. Make sure your responses are always helpful, friendly, and concise"
+                    }
+                ]
+            },
+            "contents": [
+                {
+                    "parts": [
+                        {
+                            "text": prompt
+                        }
+                    ]
+                }
+            ]
+        }
+        
+      
+    if isJsonResponse:
+            payload["generationConfig"] = {
+                "response_mime_type": "application/json"
             }
-        ]}],    "generationConfig": { "response_mime_type": "application/json" }
-    }
-    
-    response = requests.post(
+    requests.post(
         f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={apikey}",
         headers={'Content-Type': "application/json"},
         data=json.dumps(payload)

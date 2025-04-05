@@ -1,5 +1,6 @@
 import os
 
+from build.lib.jemma.fileSpitter import spitAllFiles
 from jemma.utils.terminalPrettifier import errorText
 
 
