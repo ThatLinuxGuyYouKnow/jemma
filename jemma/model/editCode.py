@@ -1,7 +1,7 @@
 import json
 from jemma.model.modelInteraction import modelInteraction
 from jemma.utils.replaceFileContentByLines import replace_lines_in_file
-from jemma.utils.terminalPrettifier import responseFormatter
+from jemma.utils.terminalPrettifier import errorText, responseFormatter
 
 
 def editCode(directoryStructure: str, fileContents: str,  userPrompt:str):
@@ -26,8 +26,12 @@ def editCode(directoryStructure: str, fileContents: str,  userPrompt:str):
     "Here is the projects directory structure :={directoryStructure}"
     "Here is the file content := {fileContents}
      Remember to return *ONLY* json"""
-    modelResponse: str = modelInteraction(prompt=prompt).strip('json')
-    print(responseFormatter(modelResponse))
+    try:
+      modelResponse: str = modelInteraction(prompt=prompt).strip('json')
+      print(responseFormatter(modelResponse))
+    except Exception as e:  
+        print(errorText('Something went wrong \n Please try again '))
+     
 
 
 def processChanges(modelResponse: str):
