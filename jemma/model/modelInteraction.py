@@ -25,12 +25,12 @@ def modelInteraction(prompt: str, isJsonResponse: bool = False):
             ]
         }
         
-      
+    apikey = get_api_key()
     if isJsonResponse:
             payload["generationConfig"] = {
                 "response_mime_type": "application/json"
             }
-    requests.post(
+    response = requests.post(
         f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={apikey}",
         headers={'Content-Type': "application/json"},
         data=json.dumps(payload)

@@ -24,8 +24,8 @@ def main():
      content = get_files_content()
      args = parser.parse_args()
      apiKey: str = get_api_key()
-     apiKey: str = get_api_key()
-     ds = spitAllFiles([path])
+     path = os.getcwd() 
+     dc = os.listdir(path)
      ds = spitAllFiles(dc)
      if not apiKey:
             print("You'll need to setup your api key first to use jemma, Please run "+ successText('jemma-configure'))
@@ -44,7 +44,7 @@ def main():
      
       print(warningText('Parsing Codebase....'))
    
-      explainCode(directoryStructure=ds,apikey=apiKey, files=content  )
+      explainCode(directoryStructure=ds, files=content  )
      if args.edit:
          user_prompt = ''.join(args.edit)
          warningText(user_prompt)

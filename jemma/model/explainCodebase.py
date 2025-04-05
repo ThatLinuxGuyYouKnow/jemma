@@ -1,13 +1,12 @@
 from configparser import Error
-import requests
-import json
+ 
 from requests.exceptions import RequestException
 from jemma.model.modelInteraction import modelInteraction
 from jemma.utils.terminalPrettifier import errorText, responseFormatter, warningText
 
-def explainCode(directoryStructure: str, apikey: str, files: str):
+def explainCode(directoryStructure: str, files: str):
  try :
-    if not apikey or not directoryStructure or not files:
+    if not directoryStructure or not files:
         print(errorText('somethings wrong here'))
         quit()
     model_prompt = f"""Explain the following codebase, mentioning frameworks, languages, critical operating logic, and  only if you find any, critical bugs' 
