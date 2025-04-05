@@ -20,7 +20,7 @@ def modelInteraction(prompt: str):
                 "parts": [
                     {"text": prompt
             }
-        ]}]
+        ]}],    "generationConfig": { "response_mime_type": "application/json" }
     }
     
     response = requests.post(

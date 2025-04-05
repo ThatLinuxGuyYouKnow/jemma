@@ -24,8 +24,8 @@ def main():
      content = get_files_content()
      args = parser.parse_args()
      apiKey: str = get_api_key()
-     path = os.getcwd() 
-     dc = os.listdir(path)
+     apiKey: str = get_api_key()
+     ds = spitAllFiles([path])
      ds = spitAllFiles(dc)
      if not apiKey:
             print("You'll need to setup your api key first to use jemma, Please run "+ successText('jemma-configure'))
