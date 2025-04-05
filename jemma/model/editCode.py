@@ -1,3 +1,4 @@
+import json
 from jemma.model.modelInteraction import modelInteraction
 from jemma.utils.replaceFileContentByLines import replace_lines_in_file
 from jemma.utils.terminalPrettifier import responseFormatter
@@ -29,12 +30,21 @@ def editCode(directoryStructure: str, fileContents: str,  userPrompt:str):
     print(responseFormatter(modelResponse))
 
 
-def processChanges(filePatches: str):
-    number_of_patches = 0
-    for patch in filePatches and number_of_patches < len(filePatches) and number_of_patches + 1 :
-        start_line: str = filePatches[number_of_patches]['start_line']
-        end_line: str = filePatches[number_of_patches]['start_line']
-        file: str = filePatches[number_of_patches]['file']
-        replacement: str = filePatches[number_of_patches]['replacement']
-        replace_lines_in_file(file, start_line=start_line, end_line=end_line, new_content=replacement)
+def processChanges(modelResponse: str):
+    # Parse the JSON response
+    response_data = json.loads(modelResponse)
+    file_patches = response_data.get("changes", [])
     
+    for patch in file_patches:
+        start_line = patch['start_line']
+        end_line = patch['end_line']
+        file = patch['file']
+        replacement = patch['replacement']
+        
+        # Convert list of replacement lines to a single string with newlines
+        replacement_content = '\n'.join(replacement)
+        
+        # Apply the patch
+        replace_lines_in_file(file, start_line=start_line, end_line=end_line, new_content=replacement_content)
+    
+    return len(file_patches)
