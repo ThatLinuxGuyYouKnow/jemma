@@ -20,7 +20,7 @@ def editCode(directoryStructure: str, fileContents: str,  userPrompt:str):
         }},
            {{
            "isNewFile":"true"
-          "file": "tools/main.py",
+          "file": "config.py",
           "start_line": 46,
           "end_line": 47,
           "replacement": ["print('Hello Jemma')"]
@@ -49,6 +49,8 @@ def processChanges(modelResponse: str):
     file_patches = response_data.get("changes", [])
     
     for patch in file_patches:
+        if patch["isNewFile"] and patch["isNewFile"] == True:
+            patch
         start_line = patch['start_line']
         end_line = patch['end_line']
         file = patch['file']
