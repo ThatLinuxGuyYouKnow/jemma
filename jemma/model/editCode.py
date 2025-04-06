@@ -27,9 +27,10 @@ def editCode(directoryStructure: str, fileContents: str,  userPrompt:str):
     "Here is the file content := {fileContents}
      Remember to return *ONLY* json"""
     try:
-      modelResponse: str = modelInteraction(prompt=prompt).strip('json')
-      processChanges(modelResponse=modelResponse)
+      modelResponse: str = modelInteraction(prompt=prompt, isJsonResponse=True).strip('json')
       print(responseFormatter(modelResponse))
+      processChanges(modelResponse=modelResponse)
+     
     except Exception as e:  
         print(errorText(f'Something went wrong \n Please try again {e}'))
      
