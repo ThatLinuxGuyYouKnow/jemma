@@ -5,7 +5,7 @@ from jemma.utils.terminalPrettifier import successText, errorText
 
 def initialize_jemma():
     """Interactive configuration setup for Jemma AI assistant"""
-    CONFIG_PATH = Path.home() / ".jemma-config.json"
+    CONFIG_PATH = Path.home() / ".jemma" /  "config.json"
     
     # Check for existing configuration
     if CONFIG_PATH.exists():
@@ -91,7 +91,7 @@ def load_config():
         with open(CONFIG_PATH, "r") as f:
             return json.load(f)
     except FileNotFoundError:
-        print(errorText("No configuration found. Please run setup first."))
+        print(errorText("No configuration found. Please run jemma-configure and jemma -init first."))
         return None
     except json.JSONDecodeError:
         print(errorText("Configuration file is corrupted. Please reconfigure."))

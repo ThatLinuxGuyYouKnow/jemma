@@ -11,7 +11,7 @@ def editCode(directoryStructure: str, fileContents: str, userPrompt: str):
       "changes": [
         {{
           "file": "path/to/file",
-          "isNewFile": false,
+          "isNewFile": "false",
           "start_line": 1,
           "end_line": 2,
           "replacement": ["line1", "line2"]
