@@ -49,8 +49,11 @@ def processChanges(modelResponse: str):
     file_patches = response_data.get("changes", [])
     
     for patch in file_patches:
-        if patch["isNewFile"] and patch["isNewFile"] == True:
-            patch
+        if patch["isNewFile"] and patch["isNewFile"] == 'True':
+            new_file = patch['file']
+            file_content = patch['replacement']
+            with open(new_file, "w") as f:
+              f.write(file_content) 
         start_line = patch['start_line']
         end_line = patch['end_line']
         file = patch['file']
