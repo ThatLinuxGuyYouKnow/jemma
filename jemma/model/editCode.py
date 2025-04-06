@@ -17,6 +17,13 @@ def editCode(directoryStructure: str, fileContents: str,  userPrompt:str):
           "start_line": 46,
           "end_line": 47,
           "replacement": ["print('Hello Jemma')"]
+        }},
+           {{
+           "isNewFile":"true"
+          "file": "tools/main.py",
+          "start_line": 46,
+          "end_line": 47,
+          "replacement": ["print('Hello Jemma')"]
         }}
       ],
       "narration": "Updated print statement to fix output"
