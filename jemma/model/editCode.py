@@ -1,68 +1,74 @@
 import json
 from jemma.model.modelInteraction import modelInteraction
 from jemma.utils.replaceFileContentByLines import replace_lines_in_file
-from jemma.utils.terminalPrettifier import errorText, responseFormatter
+from jemma.utils.terminalPrettifier import errorText, responseFormatter, successText
 
-
-def editCode(directoryStructure: str, fileContents: str,  userPrompt:str):
-    prompt = f"""Return fixes or feature additions based on the users request, return the code as code patches"
-    "-Send the code in the format"
-    "- 'start_line': int, the line number (1-indexed) where the change begins."
-    "- 'end_line': int, the line number where the change ends (inclusive)"
-    "- 'replacement': list of str, new lines to replace the specified range."
-    "For example     {{
+def editCode(directoryStructure: str, fileContents: str, userPrompt: str):
+    """Generate and apply code changes based on user request"""
+    prompt = f"""
+    Return fixes/features as JSON patches. Format:
+    {{
       "changes": [
         {{
-          "file": "tools/main.py",
-          "start_line": 46,
-          "end_line": 47,
-          "replacement": ["print('Hello Jemma')"]
-        }},
-           {{
-           "isNewFile":"true"
-          "file": "config.py",
-          "start_line": 46,
-          "end_line": 47,
-          "replacement": ["print('Hello Jemma')"]
+          "file": "path/to/file",
+          "isNewFile": false,
+          "start_line": 1,
+          "end_line": 2,
+          "replacement": ["line1", "line2"]
         }}
       ],
-      "narration": "Updated print statement to fix output"
+      "narration": "Description of changes"
     }}
-    Using the preceeding instruction, operate on this codebase
-    "Here is the users request :={userPrompt}
-    "Here is the projects directory structure :={directoryStructure}"
-    "Here is the file content := {fileContents}
-     Remember to return *ONLY* json"""
+    
+    User request: {userPrompt}
+    Directory structure: {directoryStructure}
+    File contents: {fileContents}
+    
+    Respond with *ONLY* valid JSON"""
+    
     try:
-      modelResponse: str = modelInteraction(prompt=prompt, isJsonResponse=True).strip('json')
-      print(responseFormatter(modelResponse))
-      processChanges(modelResponse=modelResponse)
-     
-    except Exception as e:  
-        print(errorText(f'Something went wrong \n Please try again {e}'))
-     
+        modelResponse = modelInteraction(prompt=prompt, isJsonResponse=True)
+        print(responseFormatter(modelResponse))
+        change_count = processChanges(modelResponse)
+        print(successText(f"Successfully applied {change_count} changes"))
+        return change_count
+    except json.JSONDecodeError as e:
+        print(errorText(f"Invalid JSON response: {e}"))
+    except Exception as e:
+        print(errorText(f"Error processing changes: {e}"))
 
-
-def processChanges(modelResponse: str):
-    # Parse the JSON response
+def processChanges(modelResponse: str) -> int:
+    """Apply changes from JSON response to files"""
     response_data = json.loads(modelResponse)
     file_patches = response_data.get("changes", [])
-    
+    change_count = 0
+
     for patch in file_patches:
-        if patch["isNewFile"] and patch["isNewFile"] == 'True':
-            new_file = patch['file']
-            file_content = patch['replacement']
-            with open(new_file, "w") as f:
-              f.write(file_content) 
-        start_line = patch['start_line']
-        end_line = patch['end_line']
-        file = patch['file']
-        replacement = patch['replacement']
-        
-        # Convert list of replacement lines to a single string with newlines
-        replacement_content = '\n'.join(replacement)
-        
-        # Apply the patch
-        replace_lines_in_file(file, start_line=start_line, end_line=end_line, new_content=replacement_content)
+        try:
+            file_path = patch['file']
+            is_new = patch.get('isNewFile', 'false').lower() == 'true'
+            replacement = patch.get('replacement', [])
+            
+            if is_new:
+                # Create new file with content
+                with open(file_path, "w", encoding='utf-8') as f:
+                    f.write('\n'.join(replacement))
+                change_count += 1
+            else:
+                # Modify existing file
+                start_line = int(patch['start_line'])
+                end_line = int(patch['end_line'])
+                replace_lines_in_file(
+                    file_path=file_path,
+                    start_line=start_line,
+                    end_line=end_line,
+                    new_content='\n'.join(replacement)
+                )
+                change_count += 1
+                
+        except KeyError as e:
+            print(errorText(f"Missing required field in patch: {e}"))
+        except IOError as e:
+            print(errorText(f"File operation failed for {file_path}: {e}"))
     
-    return len(file_patches)
+    return change_count
