@@ -61,3 +61,7 @@ Jemma offers two main functionalities:
 **Note:** The `.current_chat.txt` file stores the current chat history.  This file is used to maintain context during an interactive session.
 
 
+## Roadmap
+
+- [ ] Fix configuration and improve the use of the configuration file
+- [x] Fix edit with line enumeration
