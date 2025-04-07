@@ -65,3 +65,7 @@ Jemma offers two main functionalities:
 
 - [ ] Fix configuration and improve the use of the configuration file
 - [x] Fix edit with line enumeration
+- [ ] Add support for multiple models (Gemini Pro, etc.)
+- [ ] Implement configuration via command-line arguments
+- [ ] Improve error handling and logging
+- [ ] Add unit tests
