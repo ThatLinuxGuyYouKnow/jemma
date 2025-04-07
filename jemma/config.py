@@ -1,7 +1,7 @@
 import os
 from pathlib import Path
 
-from jemma.utils.terminalPrettifier import colouredText, errorText, successText, warningText
+from jemma.utils.terminalPrettifier import errorText, successText, warningText
 
 def configure_api_key():
     """Interactive configuration of the Gemini API key."""
@@ -22,4 +22,3 @@ def configure_api_key():
     else:
         print(errorText("No API key provided. Configuration cancelled."))
         return False
-
