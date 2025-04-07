@@ -24,7 +24,7 @@ classifiers = [
 
 [project.scripts]
 jemma = "jemma.main:main"
-jemma-init = "jemma.init:configure_api_key"
+jemma-init = "jemma.init:set_api_key"
 
 [tool.setuptools]
 packages = ["jemma"]

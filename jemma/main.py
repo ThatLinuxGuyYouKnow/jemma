@@ -1,9 +1,7 @@
 import argparse
 import os
 from pathlib import Path
-import subprocess
-
-from jemma.initialization import initialize_jemma
+from jemma.config import configure_jemma
 from jemma.model.commandWatch import watchCommand
 from jemma.model.editCode import editCode
  
@@ -18,8 +16,7 @@ def main():
      parser = argparse.ArgumentParser(description="Get coding help right in your terminal!")
      parser.add_argument("-ex", "--explain", action="store_true", help="Explain this repository, provide an overview of critical functions and/or views")
      parser.add_argument("-ch", "--chat", action="store_true", help="Start an interactive session, no access to codebase")
-     parser.add_argument("-init", "--initialize", action="store_true", help="Start your Jemma experience, set preferences")
-     parser.add_argument("-config","--configure", action="store_true", help="Configure your preferences")
+     parser.add_argument("-config", "--configure", action="store_true", help="Start your jemma experience, set preferences")
      parser.add_argument("-w", "--watch", nargs='+', help="Jemma will run this command watch the output for you")
      parser.add_argument("-ed", "--edit", type=str, nargs='+', help="Let Jemma help you fix bugs and add features")
      parser.add_argument("output", nargs="?", default="README.md", help="Output file path (default: README.md)")
@@ -29,16 +26,8 @@ def main():
      path = os.getcwd() 
      dc = os.listdir(path)
      ds = spitAllFiles(dc)
-     if not apiKey and not args.configure:
-            print("You'll need to setup your api key first to use jemma, Please run "+ successText('jemma-configure'))
-     if args.configure:
-         subprocess.run(
-                "jemma-init".strip(),
-                shell=True,
-                stdout=subprocess.PIPE,
-                stderr=subprocess.STDOUT,
-                text=True
-            )
+     if not apiKey:
+            print("You'll need to setup your api key first to use jemma, Please run "+ successText('jemma-init'))
      if args.chat:
          print('Hallo!, lets get started!')
          firstPrompt = input('>')
@@ -47,9 +36,9 @@ def main():
 
         commandToRun = "".join(args.watch)
         watchCommand(functionToRun=commandToRun, directoryStructure=ds, codeContent=content)
-     if args.initialize:
+     if args.configure:
 
-         initialize_jemma()
+         configure_jemma()
      if args.explain:
      
       print(warningText('Parsing Codebase....'))

@@ -22,8 +22,7 @@ signal.signal(signal.SIGTERM, cleanup_and_exit)
 def startCodeSession(firstPrompt: str):
     try:
         
-        with open('.current_chat.txt', "w") as f:
-            f.write('USER: ' + firstPrompt + '\n')
+
         
        
         model_response = modelInteraction(firstPrompt)
