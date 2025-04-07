@@ -6,6 +6,7 @@ from jemma.model.commandWatch import watchCommand
 from jemma.model.editCode import editCode
  
 from jemma.utils.getApiKey import get_api_key
+from jemma.utils.getConfig import get_config
 from jemma.utils.getFilesContent import get_files_content
 from jemma.utils.terminalPrettifier import successText, warningText
 from .utils.fileSpitter import spitAllFiles
@@ -26,6 +27,9 @@ def main():
      path = os.getcwd() 
      dc = os.listdir(path)
      ds = spitAllFiles(dc)
+     config = get_config()
+     model = config.model
+     print(model)
      if not apiKey:
             print("You'll need to setup your api key first to use jemma, Please run "+ successText('jemma-init'))
      if args.chat:
