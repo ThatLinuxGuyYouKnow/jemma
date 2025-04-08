@@ -1,9 +1,21 @@
+import atexit
 from configparser import Error
+import signal
+import sys
  
 from requests.exceptions import RequestException
 from jemma.model.modelInteraction import modelInteraction
 from jemma.utils.terminalPrettifier import errorText, responseFormatter, warningText
+def handle_exit(signum=None, frame=None):
+    """Handle program exit with proper cleanup and status code"""
+    
+    print("\nExiting Jemma...")
+    sys.exit(0 if signum in (signal.SIGINT, signal.SIGTERM) else 1)
 
+# Register the exit handler
+atexit.register(handle_exit)
+signal.signal(signal.SIGINT, handle_exit)
+signal.signal(signal.SIGTERM, handle_exit)
 def explainCode(directoryStructure: str, files: str):
  try :
     if not directoryStructure or not files:

@@ -1,8 +1,20 @@
+import atexit
 import json
+import signal
+import sys
 from jemma.model.modelInteraction import modelInteraction
 from jemma.utils.replaceFileContentByLines import replace_lines_in_file
 from jemma.utils.terminalPrettifier import errorText, responseFormatter, successText
+def handle_exit(signum=None, frame=None):
+    """Handle program exit with proper cleanup and status code"""
+    
+    print("\nExiting Jemma...")
+    sys.exit(0 if signum in (signal.SIGINT, signal.SIGTERM) else 1)
 
+# Register the exit handler
+atexit.register(handle_exit)
+signal.signal(signal.SIGINT, handle_exit)
+signal.signal(signal.SIGTERM, handle_exit)
 def editCode(directoryStructure: str, fileContents: str, userPrompt: str):
     """Generate and apply code changes based on user request"""
     prompt = f"""

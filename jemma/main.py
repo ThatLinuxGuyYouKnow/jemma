@@ -15,16 +15,7 @@ from .utils.fileSpitter import spitAllFiles
 from .model.explainCodebase import explainCode
 from .model.startSession import startCodeSession
 
-def handle_exit(signum=None, frame=None):
-    """Handle program exit with proper cleanup and status code"""
-    
-    print("\nExiting Jemma...")
-    sys.exit(0 if signum in (signal.SIGINT, signal.SIGTERM) else 1)
 
-# Register the exit handler
-atexit.register(handle_exit)
-signal.signal(signal.SIGINT, handle_exit)
-signal.signal(signal.SIGTERM, handle_exit)
 
 def main():
     try:
