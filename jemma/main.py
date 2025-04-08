@@ -29,6 +29,7 @@ def main():
      ds = spitAllFiles(dc)
      if not apiKey:
             print("You'll need to setup your api key first to use jemma, Please run "+ successText('jemma-init'))
+            return None
      if args.chat:
          print('Hallo!, lets get started!')
          firstPrompt = input('>')

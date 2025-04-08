@@ -1,7 +1,7 @@
  
 from pathlib import Path
 import sys
-from jemma.utils.terminalPrettifier import successText, errorText
+from jemma.utils.terminalPrettifier import successText, errorText, warningText
 
 import json
  
@@ -52,10 +52,13 @@ CONFIG = JemmaConfig()
 
 def configure_jemma():
     """Interactive configuration setup for Jemma AI assistant"""
+ 
     CONFIG_PATH = Path.home() / ".jemma" /  "config.json"
-    
+    config_exists: bool = False
+ 
     # Check for existing configuration
     if CONFIG_PATH.exists():
+        config_exists = True
         confirm = input("⚠️ Existing configuration found. Overwrite? [y/N] ").lower()
         if confirm != "y":
             print("Aborting configuration")
@@ -78,7 +81,7 @@ def configure_jemma():
     
     # Model Selection
     while True:
-        print(f"Choose your preferred model(current, {CONFIG.model}):")
+        print(f"Choose your preferred model(current, {CONFIG.model}):" if config_exists else "Choose your preferred model:")
         print("1. Gemini 2.0 (Higher quality)")
         print("2. Gemini 2.0 Flash (Faster responses)")
         choice = input("> ").strip()
@@ -97,7 +100,7 @@ def configure_jemma():
     
     # Temperature setting
     try:
-        temp_input = input(f"Temperature, value between 0.1 and 1.0(current {CONFIG.temperature})) ")
+        temp_input = input(f"Temperature, value between 0.1 and 1.0(current {CONFIG.temperature})) " if config_exists else "Temperature, value between 0.1 and 1.0: ")
         if temp_input:
             temp = float(temp_input)
             config['settings']['temperature'] = max(0.0, min(1.0, temp))
@@ -106,7 +109,7 @@ def configure_jemma():
     
     # Max tokens setting
     try:
-        tokens_input = input(f"Max tokens *out*, max : models max output {CONFIG.maxOutputTokens} ")
+        tokens_input = input(f"Max tokens *out*, max : models max output {CONFIG.maxOutputTokens} " if config_exists else "Max tokens *out*, max : models max output: ")
         if tokens_input:
             tokens = int(tokens_input)
             config['settings']['max_output_tokens'] = max(1, tokens)
