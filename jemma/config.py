@@ -84,6 +84,7 @@ def configure_jemma():
         print(f"Choose your preferred model(current, {CONFIG.model}):" if config_exists else "Choose your preferred model:")
         print("1. Gemini 2.0 Flash Lite (most cost effective model)")
         print("2. Gemini 2.0 Flash (most balanced model)")
+        print("3. Gemini 1-5.pro (largest token window, great for mega codebases)")
         choice = input("> ").strip()
         
         if choice == "1":
@@ -92,6 +93,8 @@ def configure_jemma():
         elif choice == "2":
             config["model"] = "gemini-2.0-flash"
             break
+        elif choice =="3":
+            config['model'] = "gemini-1.5-pro"
         else:
             print(errorText(f"⚠️ Invalid choice '{choice}'. Please enter 1 or 2\n"))
     
