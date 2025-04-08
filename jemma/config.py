@@ -82,12 +82,12 @@ def configure_jemma():
     # Model Selection
     while True:
         print(f"Choose your preferred model(current, {CONFIG.model}):" if config_exists else "Choose your preferred model:")
-        print("1. Gemini 2.0 (Higher quality)")
-        print("2. Gemini 2.0 Flash (Faster responses)")
+        print("1. Gemini 2.0 Flash Lite (most cost effective model)")
+        print("2. Gemini 2.0 Flash (most balanced model)")
         choice = input("> ").strip()
         
         if choice == "1":
-            config["model"] = "gemini-2.0"
+            config["model"] = "gemini-2.0-flash-lite"
             break
         elif choice == "2":
             config["model"] = "gemini-2.0-flash"

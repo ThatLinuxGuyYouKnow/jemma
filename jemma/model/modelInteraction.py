@@ -35,7 +35,7 @@ def modelInteraction(prompt: str, isJsonResponse: bool = False):
     generationConfig["maxOutputTokens"]=CONFIG.maxOutputTokens
     payload["generationConfig"] = generationConfig
     response = requests.post(
-        f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={apikey}",
+        f"https://generativelanguage.googleapis.com/v1beta/models/{CONFIG.model}:generateContent?key={apikey}",
         headers={'Content-Type': "application/json"},
         data=json.dumps(payload)
     )
