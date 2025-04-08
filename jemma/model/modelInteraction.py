@@ -32,7 +32,7 @@ def modelInteraction(prompt: str, isJsonResponse: bool = False):
     if isJsonResponse:
         generationConfig["response_mime_type"]= "application/json"
     generationConfig["temperature"]=CONFIG.temperature
-    generationConfig["maxOutputTokens"]=CONFIG.maxOutputTokens
+    generationConfig["maxOutputTokens"]=CONFIG.max_output_tokens
     payload["generationConfig"] = generationConfig
     response = requests.post(
         f"https://generativelanguage.googleapis.com/v1beta/models/{CONFIG.model}:generateContent?key={apikey}",

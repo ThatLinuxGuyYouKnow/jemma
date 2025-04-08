@@ -41,8 +41,8 @@ class JemmaConfig:
     def temperature(self) -> float:
         return self._config.get('settings', {}).get('temperature', 0.7)
     @property
-    def maxOutputTokens(self) -> float:
-        return self._config.get('setting',{}).get('max_output_tokens',2048)
+    def max_output_tokens(self) -> float:
+        return self._config.get('settings',{}).get('max_output_tokens',2048)
     @property
     def api_base(self) -> str:
         return f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}"
@@ -69,7 +69,7 @@ def configure_jemma():
         "model": CONFIG.model,
         "settings": {
             "temperature": CONFIG.temperature ,
-            "max_output_tokens": CONFIG.maxOutputTokens,
+            "max_output_tokens": CONFIG.max_output_tokens,
             "safety_settings": {
                 "harassment": "block_only_high",
                 "dangerous": "block_medium_and_above"
@@ -95,6 +95,7 @@ def configure_jemma():
             break
         elif choice =="3":
             config['model'] = "gemini-1.5-pro"
+            break
         else:
             print(errorText(f"⚠️ Invalid choice '{choice}'. Please enter 1 or 2\n"))
     
@@ -112,7 +113,7 @@ def configure_jemma():
     
     # Max tokens setting
     try:
-        tokens_input = input(f"Max tokens *out*, max : models max output {CONFIG.maxOutputTokens} " if config_exists else "Max tokens *out*, max : models max output: ")
+        tokens_input = input(f"Max tokens *out*, max : models max output {CONFIG.max_output_tokens} " if config_exists else "Max tokens *out*, max : models max output: ")
         if tokens_input:
             tokens = int(tokens_input)
             config['settings']['max_output_tokens'] = max(1, tokens)
