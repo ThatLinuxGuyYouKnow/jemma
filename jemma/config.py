@@ -106,10 +106,10 @@ def configure_jemma():
     
     # Max tokens setting
     try:
-        tokens_input = input(f"Max tokens ({config['settings']['max_tokens']}): ")
+        tokens_input = input(f"Max tokens ({config['settings']['max_output_tokens']}): ")
         if tokens_input:
             tokens = int(tokens_input)
-            config['settings']['max_tokens'] = max(1, tokens)
+            config['settings']['max_output_tokens'] = max(1, tokens)
     except ValueError:
         print(errorText("Invalid max tokens value. Using default."))
     
@@ -131,18 +131,5 @@ def configure_jemma():
         print(errorText(f"\n❌ Failed to save configuration: {str(e)}"))
         sys.exit(1)
 
-def load_config():
-    """Load existing configuration"""
-    CONFIG_PATH = Path.home() / ".jemma-config.json"
-    try:
-        with open(CONFIG_PATH, "r") as f:
-            return json.load(f)
-    except FileNotFoundError:
-        print(errorText("No configuration found. Please run jemma-configure and jemma -init first."))
-        return None
-    except json.JSONDecodeError:
-        print(errorText("Configuration file is corrupted. Please reconfigure."))
-        return None
-
-if __name__ == "__main__":
-    initialize_jemma()
+ 
+ 
