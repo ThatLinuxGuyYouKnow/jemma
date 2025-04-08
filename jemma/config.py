@@ -40,7 +40,9 @@ class JemmaConfig:
     @property
     def temperature(self) -> float:
         return self._config.get('settings', {}).get('temperature', 0.7)
-    
+    @property
+    def maxOutputTokens(self) -> float:
+        return self._config.get('setting',{}).get('max_output_tokens',2048)
     @property
     def api_base(self) -> str:
         return f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}"
@@ -64,7 +66,7 @@ def configure_jemma():
         "model": None,
         "settings": {
             "temperature": 0.7,
-            "max_tokens": 2048,
+            "max_output_tokens": 2048,
             "safety_settings": {
                 "harassment": "block_only_high",
                 "dangerous": "block_medium_and_above"

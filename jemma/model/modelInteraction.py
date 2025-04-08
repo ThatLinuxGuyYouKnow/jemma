@@ -32,6 +32,7 @@ def modelInteraction(prompt: str, isJsonResponse: bool = False):
     if isJsonResponse:
         generationConfig["response_mime_type"]= "application/json"
     generationConfig["temperature"]=CONFIG.temperature
+    generationConfig["maxOutputTokens"]=CONFIG.maxOutputTokens
     payload["generationConfig"] = generationConfig
     response = requests.post(
         f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={apikey}",
