@@ -63,10 +63,10 @@ def configure_jemma():
     
     # Default configuration
     config = {
-        "model": None,
+        "model": CONFIG.model,
         "settings": {
-            "temperature": 0.7,
-            "max_output_tokens": 2048,
+            "temperature": CONFIG.temperature ,
+            "max_output_tokens": CONFIG.maxOutputTokens,
             "safety_settings": {
                 "harassment": "block_only_high",
                 "dangerous": "block_medium_and_above"
@@ -78,7 +78,7 @@ def configure_jemma():
     
     # Model Selection
     while True:
-        print("Choose your preferred model:")
+        print(f"Choose your preferred model(current, {config['model']}):")
         print("1. Gemini 2.0 (Higher quality)")
         print("2. Gemini 2.0 Flash (Faster responses)")
         choice = input("> ").strip()
