@@ -27,9 +27,6 @@ def main():
      path = os.getcwd() 
      dc = os.listdir(path)
      ds = spitAllFiles(dc)
-     config = get_config()
-     model = config.model
-     print(model)
      if not apiKey:
             print("You'll need to setup your api key first to use jemma, Please run "+ successText('jemma-init'))
      if args.chat:

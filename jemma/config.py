@@ -1,7 +1,52 @@
-import json
+ 
 from pathlib import Path
 import sys
 from jemma.utils.terminalPrettifier import successText, errorText
+
+import json
+ 
+from typing import Dict, Any
+
+class JemmaConfig:
+    _instance = None
+    _config: Dict[str, Any] = None
+    
+    def __new__(cls):
+        if cls._instance is None:
+            cls._instance = super(JemmaConfig, cls).__new__(cls)
+            cls._load_config()
+        return cls._instance
+    
+    @classmethod
+    def _load_config(cls):
+        """Load config once per session"""
+        config_path = Path.home() / ".jemma" / "config.json"
+        try:
+            with open(config_path, 'r') as f:
+                cls._config = json.load(f)
+        except (FileNotFoundError, json.JSONDecodeError) as e:
+            cls._config = {
+                'model': 'gemini-2.0-flash',  # Default fallback
+                'settings': {
+                    'temperature': 0.7,
+                    'max_tokens': 2048
+                }
+            }
+    
+    @property
+    def model(self) -> str:
+        return self._config.get('model', 'gemini-2.0-flash')
+    
+    @property
+    def temperature(self) -> float:
+        return self._config.get('settings', {}).get('temperature', 0.7)
+    
+    @property
+    def api_base(self) -> str:
+        return f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}"
+
+# Global configuration instance
+CONFIG = JemmaConfig()
 
 def configure_jemma():
     """Interactive configuration setup for Jemma AI assistant"""

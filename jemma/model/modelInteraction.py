@@ -3,7 +3,8 @@ import requests
 
 from jemma.utils.getApiKey import get_api_key
 from jemma.utils.terminalPrettifier import errorText, warningText
-from requests.exceptions import RequestException 
+from requests.exceptions import RequestException
+from jemma.config import CONFIG 
 def modelInteraction(prompt: str, isJsonResponse: bool = False):
  try:
     payload = {
@@ -19,6 +20,7 @@ def modelInteraction(prompt: str, isJsonResponse: bool = False):
                     "parts": [
                         {
                             "text": prompt
+                            
                         }
                     ]
                 }
@@ -30,6 +32,8 @@ def modelInteraction(prompt: str, isJsonResponse: bool = False):
             payload["generationConfig"] = {
                 "response_mime_type": "application/json"
             }
+    if JemmaConfig.temperature != '0.7': 
+         payload["generationConfig"] = payload["generationConfig"] + {"temperature":CONFIG.temperature}
     response = requests.post(
         f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={apikey}",
         headers={'Content-Type': "application/json"},

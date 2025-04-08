@@ -19,6 +19,6 @@ def spitAllFiles(paths):
             except PermissionError:
                 print(errorText(f"Permission denied: {path}"))
         else:
-            print(errorText(f"Invalid path: {path}"))
+            continue
     return all_files  # Return the accumulated list of file paths
  
