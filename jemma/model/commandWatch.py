@@ -2,19 +2,11 @@ import atexit
 import os
 import signal
 import subprocess
+import sys
 
 from jemma.model.modelInteraction import modelInteraction
 from jemma.utils.terminalPrettifier import responseFormatter, warningText
-def handle_exit(signum=None, frame=None):
-    """Handle program exit with proper cleanup and status code"""
-    
-    print("\nExiting Jemma...")
-    sys.exit(0 if signum in (signal.SIGINT, signal.SIGTERM) else 1)
-
-# Register the exit handler
-atexit.register(handle_exit)
-signal.signal(signal.SIGINT, handle_exit)
-signal.signal(signal.SIGTERM, handle_exit)
+ 
 
 def watchCommand(functionToRun: str, directoryStructure: str, codeContent: str):
    if not isinstance(functionToRun, str) or len(functionToRun.strip()) < 2:

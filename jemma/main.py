@@ -15,7 +15,39 @@ from .utils.fileSpitter import spitAllFiles
 from .model.explainCodebase import explainCode
 from .model.startSession import startCodeSession
 
+import atexit
+import signal
 
+# Global cleanup state
+_cleanup_done = False
+
+def cleanup():
+    """Global cleanup handler (runs only once)"""
+    global _cleanup_done
+    if _cleanup_done:
+        return
+    
+    _cleanup_done = True
+    chat_file = Path('.current_chat.txt')
+    try:
+        if chat_file.exists():
+            chat_file.unlink()
+            print(successText("\n✅ Cleaned up chat history"))
+    except Exception as e:
+        pass  # Silent cleanup failure
+
+def handle_exit(signum=None, frame=None):
+    """Unified exit handler"""
+    print(warningText('Exiting Jemma gracefully'))
+    cleanup()
+    sys.exit(0 if signum in (signal.SIGINT, signal.SIGTERM) else 1)
+
+# Register once at program start
+if not hasattr(sys, 'cleanup_registered'):
+    atexit.register(cleanup)
+    signal.signal(signal.SIGINT, handle_exit)
+    signal.signal(signal.SIGTERM, handle_exit)
+    sys.cleanup_registered = True 
 
 def main():
     try:
