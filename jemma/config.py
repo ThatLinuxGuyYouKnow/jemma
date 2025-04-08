@@ -78,7 +78,7 @@ def configure_jemma():
     
     # Model Selection
     while True:
-        print(f"Choose your preferred model(current, {config['model']}):")
+        print(f"Choose your preferred model(current, {CONFIG.model}):")
         print("1. Gemini 2.0 (Higher quality)")
         print("2. Gemini 2.0 Flash (Faster responses)")
         choice = input("> ").strip()
@@ -97,7 +97,7 @@ def configure_jemma():
     
     # Temperature setting
     try:
-        temp_input = input(f"Temperature ({config['settings']['temperature']}): ")
+        temp_input = input(f"Temperature, value between 0.1 and 1.0(current {CONFIG.temperature})) ")
         if temp_input:
             temp = float(temp_input)
             config['settings']['temperature'] = max(0.0, min(1.0, temp))
@@ -106,7 +106,7 @@ def configure_jemma():
     
     # Max tokens setting
     try:
-        tokens_input = input(f"Max tokens ({config['settings']['max_output_tokens']}): ")
+        tokens_input = input(f"Max tokens *out*, max : models max output {CONFIG.maxOutputTokens} ")
         if tokens_input:
             tokens = int(tokens_input)
             config['settings']['max_output_tokens'] = max(1, tokens)
