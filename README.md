@@ -43,19 +43,7 @@ Jemma offers two main functionalities:
    (Replace `README.md` with your desired output file name).
 
 
-**Backend (Python):**
-
-*   **Important Routes:**
-    *   `/v1beta/models/gemini-2.0-flash:generateContent`:  Sends prompts to the Google Gemini API. Uses `POST` method.  Requires `GEMINI_API_KEY` and a JSON payload containing the prompt.
-*   **Data Structures:** The backend uses JSON to send and receive data from the Gemini API.
-
-
-**Frontend (Command-line):**
-
-*   **Accessible Pages/Commands:**
-    *   `jemma -s`: Starts an interactive chat session.
-    *   `jemma -e`: Explains the codebase.
-*   **UI Framework:**  Uses the built-in Python command line interface (CLI).
+ 
     
 
 **Note:** The `.current_chat.txt` file stores the current chat history.  This file is used to maintain context during an interactive session.

@@ -28,12 +28,11 @@ def modelInteraction(prompt: str, isJsonResponse: bool = False):
         }
         
     apikey = get_api_key()
+    generationConfig = {}
     if isJsonResponse:
-            payload["generationConfig"] = {
-                "response_mime_type": "application/json"
-            }
-    if JemmaConfig.temperature != '0.7': 
-         payload["generationConfig"] = payload["generationConfig"] + {"temperature":CONFIG.temperature}
+        generationConfig["response_mime_type"]= "application/json"
+    generationConfig["temperature"]=CONFIG.temperature
+    payload["generationConfig"] = generationConfig
     response = requests.post(
         f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash:generateContent?key={apikey}",
         headers={'Content-Type': "application/json"},
