@@ -39,10 +39,10 @@ class JemmaConfig:
     
     @property
     def temperature(self) -> float:
-        return self._config.get('settings', {}).get('temperature', 0.7)
+        return self._config.get('settings', {}).get('temperature', 0.3)
     @property
     def max_output_tokens(self) -> float:
-        return self._config.get('settings',{}).get('max_output_tokens',2048)
+        return self._config.get('settings',{}).get('max_output_tokens',0)
     @property
     def api_base(self) -> str:
         return f"https://generativelanguage.googleapis.com/v1beta/models/{self.model}"
@@ -104,7 +104,7 @@ def configure_jemma():
     
     # Temperature setting
     try:
-        temp_input = input(f"Temperature, value between 0.1 and 1.0(current {CONFIG.temperature})) " if config_exists else "Temperature, value between 0.1 and 1.0: ")
+        temp_input = input(f"Temperature, value between 0.1 and 1.0(current {CONFIG.temperature})) " if config_exists else "Temperature, value between 0.1 and 1.0: default 0.3")
         if temp_input:
             temp = float(temp_input)
             config['settings']['temperature'] = max(0.0, min(1.0, temp))
@@ -113,7 +113,7 @@ def configure_jemma():
     
     # Max tokens setting
     try:
-        tokens_input = input(f"Max tokens *out*, max : models max output {CONFIG.max_output_tokens} " if config_exists else "Max tokens *out*, max : models max output: ")
+        tokens_input = input(f"Max tokens *out*, max : models max output {CONFIG.max_output_tokens} " if config_exists else f"Max tokens {warningText('*out*')}, default: none ")
         if tokens_input:
             tokens = int(tokens_input)
             config['settings']['max_output_tokens'] = max(1, tokens)
