@@ -1,6 +1,6 @@
 import os
 from pathlib import Path
-# TODO: Consider using a more secure method for storing API keys
+ 
 from jemma.utils.terminalPrettifier import errorText, successText, warningText
 
 def set_api_key():
