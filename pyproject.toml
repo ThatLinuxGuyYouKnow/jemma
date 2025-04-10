@@ -9,8 +9,8 @@ description = "Like Claude Code, but its free"
 authors = [{name = "Alabi Ayobami", email = "arocket04@gmail.com"}]
 requires-python = ">=3.6"
 dependencies = [
-    "requests>=2.25.0"
-]
+    "requests>=2.25.0",
+    "colorama",
 keywords = ["code", "code assistant", "gemini", "api"]
 classifiers = [
     "Development Status :: 3 - Alpha",
