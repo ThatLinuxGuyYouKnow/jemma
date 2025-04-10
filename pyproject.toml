@@ -3,7 +3,7 @@ requires = ["setuptools", "wheel"]
 build-backend = "setuptools.build_meta"
 
 [project]
-name = "jemma"
+name = "jemma-code"
 version = "0.1.0"
 description = "Like Claude Code, but its free"
 authors = [{name = "Alabi Ayobami", email = "arocket04@gmail.com"}]
