@@ -32,7 +32,7 @@ def modelInteraction(prompt: str, isJsonResponse: bool = False):
     if isJsonResponse:
         generationConfig["response_mime_type"]= "application/json"
     generationConfig["temperature"]=CONFIG.temperature
-    if generationConfig["maxOutputTokens"] != 0 : ##so basically, user has not set a max token output
+    if CONFIG.max_output_tokens != 0 : ##so basically, user has not set a max token output
        generationConfig["maxOutputTokens"] = CONFIG.max_output_tokens
     payload["generationConfig"] = generationConfig
     response = requests.post(
