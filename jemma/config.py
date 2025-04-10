@@ -25,14 +25,8 @@ class JemmaConfig:
             with open(config_path, 'r') as f:
                 cls._config = json.load(f)
         except (FileNotFoundError, json.JSONDecodeError) as e:
-            cls._config = {
-                'model': 'gemini-2.0-flash',  # Default fallback
-                'settings': {
-                    'temperature': 0.7,
-                    'max_tokens': 2048
-                }
-            }
-    
+            print(errorText("Can't find your configurations, please run "+ warningText('jemma --configure') ))
+            return None
     @property
     def model(self) -> str:
         return self._config.get('model', 'gemini-2.0-flash')
