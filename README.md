@@ -58,3 +58,4 @@ Jemma offers two main functionalities:
 - [ ] Create command for starting new projects
 - [ ] Improve error handling and logging
 - [ ] Add unit tests
+- [ ]  MIT liscence
