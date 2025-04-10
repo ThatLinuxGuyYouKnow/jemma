@@ -51,7 +51,7 @@ Jemma offers two main functionalities:
 
 ## Roadmap
 
-- [ ] Fix configuration and improve the use of the configuration file
+- [x]/2 Fix configuration and improve the use of the configuration file
 - [x] Fix edit with line enumeration
 - [ ] Add support for multiple models (Gemini Pro, etc.)
 - [ ] Implement configuration via command-line arguments
