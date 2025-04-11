@@ -4,20 +4,37 @@ from colorama import Fore, Style, init
 init(autoreset=True)
 
 
+import re
+from colorama import Fore, Style
+
 def responseFormatter(text: str):
-    if text == None:
+    if text is None:
         return ''
-    """Add colors to different response sections"""
-    # Color code patterns
-    formatted = text.replace('**', Style.BRIGHT + Fore.YELLOW)  # Bold text
-    formatted = formatted.replace('*', Fore.CYAN)              # Italics
-    formatted = formatted.replace('`', Fore.GREEN)             # Code blocks
     
-    # Section headers
-    formatted = formatted.replace('Framework:', "\n" + Fore.MAGENTA + "Framework:")
-    formatted = formatted.replace('Critical Logic:', "\n" + Fore.MAGENTA + "Critical Logic:")
-    formatted = formatted.replace('Potential Issues:', "\n" + Fore.RED + "Potential Issues:")
-    return formatted
+    reset = Style.RESET_ALL
+    
+ 
+    def bold_replacer(match):
+        return Style.BRIGHT + Fore.YELLOW + match.group(1) + reset
+    text = re.sub(r'\*\*(.*?)\*\*', bold_replacer, text)
+    
+ 
+    def italic_replacer(match):
+        return Fore.CYAN + match.group(1) + reset
+    text = re.sub(r'\*(.*?)\*', italic_replacer, text)
+    
+ 
+    def code_replacer(match):
+        return Fore.GREEN + match.group(1) + reset
+    text = re.sub(r'\`(.*?)\`', code_replacer, text)
+    
+ 
+    text = text.replace('Framework:', "\n" + Fore.MAGENTA + "Framework:" + reset)
+    text = text.replace('Critical Logic:', "\n" + Fore.MAGENTA + "Critical Logic:" + reset)
+    text = text.replace('Potential Issues:', "\n" + Fore.RED + "Potential Issues:" + reset)
+
+    return text
+
 
 def errorText(text: str):
     formatted = Style.BRIGHT + Fore.RED + text
