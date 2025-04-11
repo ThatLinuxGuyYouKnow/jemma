@@ -31,7 +31,7 @@ def editCode(directoryStructure: str, fileContents: str, userPrompt: str):
     
     try:
         modelResponse = modelInteraction(prompt=prompt, isJsonResponse=True)
-        print(responseFormatter(modelResponse))
+        print(responseFormatter(modelResponse["narration"])) ## so i print only the narration
         change_count = processChanges(modelResponse)
         print(successText(f"Successfully applied {change_count} changes"))
         return change_count
