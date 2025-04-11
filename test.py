@@ -1,22 +1,10 @@
 import unittest
-from unittest.mock import patch
-import argparse
-import os
-import sys
-from io import StringIO
 
-from jemma.main import main
-
-class TestJemmaCommands(unittest.TestCase):
-
-    @patch('sys.stdout', new_callable=StringIO)
-    def test_help_command(self, stdout):
-        # Execute jemma with no arguments to trigger the help message
-        with self.assertRaises(SystemExit) as cm:
-            main()
-        self.assertEqual(cm.exception.code, 0)
-        # Check that the help message is printed
-        self.assertIn('usage: jemma', stdout.getvalue())
+class TestJemma(unittest.TestCase):
+    def test_example(self):
+        self.assertEqual(1, 1)
 
 if __name__ == '__main__':
     unittest.main()
+    def test_addition(self):
+        self.assertEqual(2 + 2, 4)

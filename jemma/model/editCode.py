@@ -30,11 +30,18 @@ def editCode(directoryStructure: str, fileContents: str, userPrompt: str):
     Respond with *ONLY* valid JSON"""
     
     try:
-        modelResponse = modelInteraction(prompt=prompt, isJsonResponse=True)
-        print(responseFormatter(modelResponse["narration"])) ## so i print only the narration
-        change_count = processChanges(modelResponse)
-        print(successText(f"Successfully applied {change_count} changes"))
-        return change_count
+     modelResponse = modelInteraction(prompt=prompt, isJsonResponse=True)
+     response_dict = json.loads(modelResponse)
+     narration = response_dict.get("narration", "No narration provided.")
+     print(narration)
+ 
+     change_count = processChanges(modelResponse)
+        
+     if change_count > 0:
+            print(successText(
+                f"Successfully applied {change_count} " 
+                f"{'changes' if change_count > 1 else 'change'}"))
+ 
     except json.JSONDecodeError as e:
         print(errorText(f"Invalid JSON response: {e}"))
     except Exception as e:
