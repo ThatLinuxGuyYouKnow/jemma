@@ -5,7 +5,7 @@ init(autoreset=True)
 
 
 import re
-from colorama import Fore, Style
+ 
 
 def responseFormatter(text: str):
     if text is None:
