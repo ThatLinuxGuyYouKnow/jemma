@@ -17,8 +17,6 @@ def explainCode(directoryStructure: str, files: str):
     - File Content :=  ${files}"""
  
     response= modelInteraction(model_prompt)
-    if response == None:
-       print(errorText('Something went wrong \n Please try again'))
     print(responseFormatter(response))
  except Exception as e:
   print(errorText('An error occured '+ str(e)))
