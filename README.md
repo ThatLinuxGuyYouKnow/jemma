@@ -156,6 +156,8 @@ Jemma provides several commands to help you with your coding tasks:
 
 - [x] Add support for multiple models (Gemini Pro, etc.)
 
+- [ ] Add support for non Gemini models
+
 - [x] Implement configuration via command-line arguments
 
 - [ ] Create command for starting new projects
@@ -164,4 +166,4 @@ Jemma provides several commands to help you with your coding tasks:
 
 - [ ] Add unit tests
 
-- [ ] MIT license
+- [x] MIT license
