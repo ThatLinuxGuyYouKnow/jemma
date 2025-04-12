@@ -6,6 +6,7 @@ build-backend = "setuptools.build_meta"
 name = "jemma-code"   
 version = "0.1.0"
 description = "Get coding help, right in your terminal"
+readme = "README.md"
 authors = [{name = "Alabi Ayobami", email = "arocket04@gmail.com"}]
 requires-python = ">=3.6"
 dependencies = [
@@ -29,4 +30,4 @@ jemma-init = "jemma.init:set_api_key"
 jemma-configure = "jemma.config:configure_jemma" 
 
 [tool.setuptools]
-packages = ["jemma", "jemma.model", "jemma.utils"]  # Added subpackages
+packages = ["jemma", "jemma.model", "jemma.utils"]   
