@@ -32,6 +32,7 @@ def editCode(directoryStructure: str, fileContents: str, userPrompt: str):
     try:
      modelResponse = modelInteraction(prompt=prompt, isJsonResponse=True)
      response_dict = json.loads(modelResponse)
+ 
      narration = response_dict.get("narration", "No narration provided.")
      print(narration)
  
