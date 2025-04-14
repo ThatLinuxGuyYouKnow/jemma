@@ -56,7 +56,13 @@ def processChanges(modelResponse: str) -> int:
     for patch in file_patches:
         try:
             file_path = patch['file']
-            is_new = patch.get('isNewFile', 'false').lower() == 'true'
+            # Get the isNewFile value and handle both str and bool types
+            is_new_raw = patch.get('isNewFile', 'false')
+            if isinstance(is_new_raw, bool):
+                is_new = is_new_raw
+            else:
+                is_new = str(is_new_raw).lower() == 'true'
+                
             replacement = patch.get('replacement', [])
             
             if is_new:
