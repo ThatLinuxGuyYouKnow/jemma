@@ -68,17 +68,17 @@ def main():
             return 1
         
         # Get directory structure and file contents
+        if args.chat:
+            print('Hallo!, lets get started!')
+            firstPrompt = input('>')
+            startCodeSession(firstPrompt)
         path = os.getcwd()
         dc = os.listdir(path)
         ds = spitAllFiles(dc)
         content = get_files_content()
         
         # Process arguments
-        if args.chat:
-            print('Hallo!, lets get started!')
-            firstPrompt = input('>')
-            startCodeSession(firstPrompt)
-        elif args.watch:
+        if args.watch:
             commandToRun = "".join(args.watch)
             watchCommand(functionToRun=commandToRun, directoryStructure=ds, codeContent=content)
         elif args.configure:
@@ -88,7 +88,7 @@ def main():
             explainCode(directoryStructure=ds, files=content)
         elif args.edit:
             user_prompt = ''.join(args.edit)
-            print(warningText(user_prompt))
+           
             editCode(directoryStructure=ds, fileContents=content, userPrompt=user_prompt)
         else:
             parser.print_help()

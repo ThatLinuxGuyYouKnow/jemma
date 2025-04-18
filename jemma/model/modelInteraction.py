@@ -24,7 +24,7 @@ def modelInteraction(prompt: str, isJsonResponse: bool = False):
                         }
                     ]
                 }
-            ]
+            ],
         }
         
     apikey = get_api_key()
@@ -50,9 +50,11 @@ def modelInteraction(prompt: str, isJsonResponse: bool = False):
         print(errorText('An error occured, please try again in a bit'))
         print (str(response.status_code))
         quit()
+        
     if 'candidates' in response_data and len(response_data['candidates']) > 0:
         response=  response_data['candidates'][0]['content']['parts'][0]['text']
-        quit()
+        return response
+      
     else:
         print(errorText('something went wrong and the model did not return a response'))    
         quit()  
