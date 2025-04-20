@@ -45,7 +45,15 @@ def modelInteraction(prompt: str, isJsonResponse: bool = False):
     if response.status_code == 400:
        print(errorText("Error occured, Your api key likely isn't valid, run")+warningText(' jemma-configure ')+ errorText('to re-enter your key'))
         
+    if response.status_code == 403:
+       print(errorText("Error occured, Your api key likely isn't valid, run")+warningText(' jemma-configure ')+ errorText('to re-enter your key'))
        quit()
+
+    if response.status_code == 429:
+       print(errorText("You've reached your plan/tiers usage limit, try again when your quota resets"))
+    
+    if response.status_code == 503:
+       print(errorText("Service is currently overloaded, try again when the GPU's aren't running as hot (in a  bit)"))
     if response.status_code != 200:
         print(errorText('An error occured, please try again in a bit'))
         print (str(response.status_code))
