@@ -12,6 +12,8 @@ requires-python = ">=3.6"
 dependencies = [
     "requests>=2.25.0",
     "colorama",
+    "colorama",
+    "prompt_toolkit"
 ]
 keywords = ["code", "code assistant", "gemini", "api"]
 classifiers = [

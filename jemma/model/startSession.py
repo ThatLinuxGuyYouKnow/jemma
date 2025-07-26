@@ -3,6 +3,8 @@ import signal
 import sys
 from jemma.model.modelInteraction import modelInteraction
 from jemma.utils.terminalPrettifier import successText, errorText
+from prompt_toolkit import prompt
+
 
 
 def cleanup_and_exit(signum, frame):
@@ -42,7 +44,11 @@ def startCodeSession(firstPrompt: str):
     
 
 def continueChat():
-    newPrompt = input('> ')
+    newPrompt = prompt(
+                '> ', 
+                multiline=True,
+                history=input_history
+            )
     
     try:
        
