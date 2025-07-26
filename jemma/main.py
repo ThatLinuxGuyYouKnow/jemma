@@ -17,7 +17,9 @@ from .model.startSession import startCodeSession
 
 import atexit
 import signal
-
+from prompt_toolkit.history import FileHistory
+from prompt_toolkit.styles import Style
+from prompt_toolkit.formatted_text import FormattedText
 # Global cleanup state
 _cleanup_done = False
 
@@ -42,6 +44,8 @@ def handle_exit(signum=None, frame=None):
     cleanup()
     sys.exit(0 if signum in (signal.SIGINT, signal.SIGTERM) else 1)
 
+
+
 # Register once at program start
 if not hasattr(sys, 'cleanup_registered'):
     atexit.register(cleanup)
@@ -50,6 +54,11 @@ if not hasattr(sys, 'cleanup_registered'):
     sys.cleanup_registered = True 
 
 def main():
+     
+    bottom_toolbar = FormattedText(
+        [('class:toolbar', ' MockModel-1.0-pro (100% context left) ')],
+        style='class:toolbar'
+    )
     try:
         parser = argparse.ArgumentParser(description="Get coding help right in your terminal!")
         parser.add_argument("-ex", "--explain", action="store_true", help="Explain this repository, provide an overview of critical functions and/or views")
@@ -70,7 +79,14 @@ def main():
         # Get directory structure and file contents
         if args.chat:
             print('Hallo!, lets get started!')
-            firstPrompt = input('>')
+            user_prompt = session.prompt(
+                '> ', 
+                style=style,
+                placeholder='Type your message or /exit to quit...',
+                bottom_toolbar=bottom_toolbar,
+                # Note: A true border requires a more complex custom layout,
+                # which is beyond the scope of the simple `prompt` function.
+            )
             startCodeSession(firstPrompt)
         path = os.getcwd()
         dc = os.listdir(path)
