@@ -1,72 +1,84 @@
  
+# In a file like jemma/model/startSession.py
+# Or, based on your main.py import, jemma/model/chat_loop.py
 
 import os
-import sys
-from jemma.model.modelInteraction import modelInteraction
-from jemma.utils.terminalPrettifier import successText, errorText
+from .modelInteraction import modelInteraction
+from ..utils.terminalPrettifier import successText, errorText, warningText
 
+def chat_loop(initial_prompt: str = ""):
+    """
+    Starts and manages a self-contained, interactive chat session.
 
-def cleanup_and_exit(signum, frame):
-    """Remove the chat history file and exit."""
-    try:
-        if os.path.exists('.current_chat.txt'):
-            os.remove('.current_chat.txt')
-            print(successText(f"\n✅ Removed chat history file: {'.current_chat.txt'}"))
-    except Exception as e:
-        print(errorText(f"Error cleaning up chat file: {str(e)}"))
-    sys.exit(0)
+    This function handles the entire lifecycle of a chat:
+    - Initializes a clean chat history file.
+    - Processes an optional initial prompt.
+    - Enters a robust loop (not recursion) for continuous conversation.
+    - Allows the user to exit gracefully with 'exit' or 'quit'.
+    - Relies on the main application's exit handlers for cleanup (Ctrl+C).
 
- 
-signal.signal(signal.SIGINT, cleanup_and_exit)    
-signal.signal(signal.SIGTERM, cleanup_and_exit)  
-
-def startCodeSession(firstPrompt: str):
-    try:
-        
-
-        
-       
-        model_response = modelInteraction(firstPrompt)
-        
-   
-        if model_response:
-            with open('.current_chat.txt', "a") as f:
-                f.write('YOU(MODEL): ' + model_response + '\n')
-            
-            print(model_response)
-            continueChat()
-        
-    except PermissionError:
-        print('Could not start a chat session - permission error')
-    except Exception as e:
-        print(f'Error starting chat session: {str(e)}')
+    Args:
+        initial_prompt (str, optional): The first prompt to start the session with.
+                                        If empty, the user will be prompted immediately.
+    """
+    chat_history_file = '.current_chat.txt'
     
+    print(successText("Starting chat session. Type 'exit' or 'quit' to end."))
 
-def continueChat():
-    newPrompt = input('> ')
-    
+    # If an initial prompt was passed from the command line, print it for clarity
+    if initial_prompt:
+        print(f"> {initial_prompt}")
+
+    # Start with a clean slate for the new session.
+    # The atexit handler in main.py will remove this file on final exit.
+    with open(chat_history_file, "w") as f:
+        # Just creating/truncating the file is enough
+        pass
+
+    current_prompt = initial_prompt
+
     try:
-       
-        with open('.current_chat.txt', 'r') as f:
-            chatHistory = f.read()
-        
-         
-        model_response = modelInteraction(chatHistory + "USER: " + newPrompt)
-        
-      
-        if model_response:
-            with open('.current_chat.txt', 'a') as f:
-                f.write('USER: ' + newPrompt + '\n')
-                f.write('YOU(MODEL): ' + model_response + '\n')
+        while True:
+            # If not the first turn, or if no initial prompt was given, get input.
+            if not current_prompt:
+                current_prompt = input('> ')
+
+            # Check for exit command
+            if current_prompt.lower().strip() in ['exit', 'quit']:
+                print(warningText("Ending chat session."))
+                break # Exit the loop gracefully
+
+            # Read the entire chat history for context
+            try:
+                with open(chat_history_file, 'r') as f:
+                    chat_history = f.read()
+            except FileNotFoundError:
+                chat_history = "" # Should not happen, but safe to handle
+
+            # The model needs the full context
+            full_prompt_for_model = chat_history + "USER: " + current_prompt
             
-            print(model_response)
-            continueChat()
-        
-    except FileNotFoundError:
-        print('Error: Chat history file not found')
-        print('Exiting now, please start a new session')
-        quit()
+            # --- Interaction Logic ---
+            model_response = modelInteraction(full_prompt_for_model)
+            
+            if model_response:
+                # Print the response for the user
+                print(model_response) # Assuming modelInteraction formats its output
+
+                # Update the history file for the next turn
+                with open(chat_history_file, 'a') as f:
+                    f.write(f"USER: {current_prompt}\n")
+                    f.write(f"YOU(MODEL): {model_response}\n")
+            else:
+                print(errorText("Sorry, I couldn't generate a response. Please try again."))
+
+            # Reset prompt for the next loop iteration to wait for user input
+            current_prompt = ""
+
+    except (KeyboardInterrupt, EOFError):
+        # A KeyboardInterrupt (Ctrl+C) or EOFError (Ctrl+D) will break the loop.
+        # The main.py signal handler will then print the exit message and clean up.
+        pass
     except Exception as e:
-        print(f'Error continuing chat: {str(e)}')
-        print('Exiting now, please start a new session')
-        quit()
+        print(errorText(f'\nAn error occurred during the chat: {str(e)}'))
+        # The session ends, and the main cleanup will still run.

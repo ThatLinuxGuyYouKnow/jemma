@@ -73,8 +73,11 @@ def main():
             return 1
 
         if args.chat is not None:
-            initial_prompt = " ".join(args.chat)
-            chat_loop(initial_prompt=initial_prompt)
+            # This correctly joins arguments into a single string
+            initial_prompt = " ".join(args.chat) 
+            
+            # This one call is all you need. It will handle the rest.
+            chat_loop(initial_prompt=initial_prompt) 
             return 0
 
         # path = os.getcwd()
