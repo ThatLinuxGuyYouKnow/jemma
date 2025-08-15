@@ -35,6 +35,14 @@ def responseFormatter(text: str):
 
     return text
 
+def blueText(text:str):
+    formatted = Style.BRIGHT + Fore.BLUE + text
+    return formatted
+
+
+def jemmaText(text:str):
+    formatted = Style.BRIGHT +Fore.LIGHTMAGENTA_EX + text
+    return formatted
 
 def errorText(text: str):
     formatted = Style.BRIGHT + Fore.RED + text

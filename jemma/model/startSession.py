@@ -4,7 +4,7 @@
 
 import os
 from .modelInteraction import modelInteraction
-from ..utils.terminalPrettifier import successText, errorText, warningText
+from ..utils.terminalPrettifier import jemmaText, successText, errorText, warningText
 
 def chat_loop(initial_prompt: str = ""):
     """
@@ -63,7 +63,7 @@ def chat_loop(initial_prompt: str = ""):
             
             if model_response:
                 # Print the response for the user
-                print(model_response) # Assuming modelInteraction formats its output
+                print(jemmaText('Jemma :') + model_response) # Assuming modelInteraction formats its output
 
                 # Update the history file for the next turn
                 with open(chat_history_file, 'a') as f:
