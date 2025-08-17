@@ -1,7 +1,4 @@
  
-# In a file like jemma/model/startSession.py
-# Or, based on your main.py import, jemma/model/chat_loop.py
-
 import os
 from .modelInteraction import modelInteraction
 from ..utils.terminalPrettifier import jemmaText, successText, errorText, warningText
