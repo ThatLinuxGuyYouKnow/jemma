@@ -56,6 +56,4 @@ def successText(text: str):
     formatted = Style.BRIGHT + Fore.GREEN + text
     return formatted
 
-def colouredText( text: str, colour: str, textStyle: str):
-    formatted = Style.textStyle + Fore.colour + text
-    return formatted
+ 
