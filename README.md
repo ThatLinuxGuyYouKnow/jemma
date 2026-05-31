@@ -1,12 +1,9 @@
-# Jemma: Your Free Code Assistant
+# Jemma v2: Your Free Code Assistant
 
 [![Python](https://img.shields.io/badge/python-3.6%2B-blue.svg)](https://www.python.org/)
-[![Google Gemini](https://img.shields.io/badge/Google%20Gemini-API-brightgreen)](https://cloud.google.com/vertex-ai/docs/generative-ai/models/gemini)
-[![Colorama](https://img.shields.io/badge/colorama-terminal%20colors-brightgreen)](https://pypi.org/project/colorama/)
+[![LiteLLM](https://img.shields.io/badge/litellm-multi%20model-brightgreen)](https://github.com/BerriAI/litellm)
 
-![jemma](jemma.jpeg)
-
-**Description:** Jemma is a command-line tool that provides code assistance using the Google Gemini API.  It's free and easy to use.
+**Description:** Jemma is a command-line code assistant powered by LLMs. v2 is a complete refactor with a modular architecture — agent loop, pluggable tools, and multi-model support via LiteLLM.
 
 **Installation:**
 
@@ -16,50 +13,59 @@ pip install .
 
 **Configuration:**
 
-Before using Jemma, you need to configure your Google Gemini API key:
+Before using Jemma, configure your API key:
 
 ```bash
-jemma-configure 
+jemma-init
 ```
 
-You will be prompted to enter your API key.  This key should be stored in the  `~/.jemma/config` file. Alternatively, you can set the `GEMINI_API_KEY` environment variable.
+Alternatively, set the `GEMINI_API_KEY` environment variable.
 
-**Usage:**
+**Project Structure:**
 
-Jemma offers two main functionalities:
+```
+jemma/
+├── agent/              # Agent loop orchestration
+│   └── main.py
+├── exceptions/         # Custom exceptions
+│   └── file_operation_exceptions.py
+├── main/               # Core inference & services
+│   ├── inference/
+│   │   └── main.py
+│   └── services/
+│       └── tool_service.py
+├── tools/              # Pluggable tool definitions
+│   ├── file_operations/
+│   │   ├── read_file.py
+│   │   └── write_to_file.py
+│   ├── search_tools/
+│   │   └── grep_search.py
+│   └── registry.py
+└── validators/         # Input validation for tools
+    └── file_operations_validators.py
+```
 
-1. **Interactive Code Session (`jemma -s`):** Start an interactive coding session where you can ask questions and receive code suggestions.
+**Tools:**
 
-   ```bash
-   jemma -s
-   ```
+| Tool | Description |
+|------|-------------|
+| `read_file` | Read file content with optional line ranges |
+| `write_to_file` | Edit existing files by replacing content |
+| `write_new_file` | Create and write to new files |
+| `grep_search` | Search for patterns across files and directories |
 
-2. **Codebase Explanation (`jemma -e`):**  Get a detailed explanation of your current codebase, including frameworks, languages, critical logic, and potential issues.
+**What's New in v2:**
 
-   ```bash
-   jemma -e README.md
-   ```
-
-   (Replace `README.md` with your desired output file name).
-
-
- 
-    
-
-**Note:** The `.current_chat.txt` file stores the current chat history.  This file is used to maintain context during an interactive session.
-
+- Modular architecture with agent loop, tools, and validators
+- Tool registry with schema definitions for LLM function calling
+- Multi-model support via LiteLLM
+- Streaming inference
+- Pluggable tool system — easy to add new tools
 
 ## Roadmap
 
-- [x] Fix configuration and improve the use of the configuration file
-- [x] Fix edit with line enumeration
-- [x] Add support for multiple models (Gemini Pro, etc.)
-
-- [ ] Add support for non Gemini models
-
-- [x] Implement configuration via command-line arguments
+- [ ] Complete agent loop with tool call handling
+- [ ] Add support for more models via LiteLLM
 - [ ] Create command for starting new projects
 - [ ] Improve error handling and logging
 - [ ] Add unit tests
-
-- [x] MIT license
