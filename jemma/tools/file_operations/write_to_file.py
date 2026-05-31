@@ -1,4 +1,4 @@
-def replace_lines_in_file(file_path, start_line, end_line, new_content):
+def replace_lines_in_file(file_path: str, end_line: int, new_content: str, start_line:int = 0):
     """
     Replace content in a file between start_line and end_line (inclusive) with new_content.
     
@@ -30,3 +30,11 @@ def replace_lines_in_file(file_path, start_line, end_line, new_content):
     # Write back to the file
     with open(file_path, 'w') as file:
         file.writelines(result)
+
+
+def write_new_file(file_path: str, content: str):
+
+    with open(file_path , 'w') as file:
+
+
+        file.write(content)

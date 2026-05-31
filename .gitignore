@@ -1,0 +1,11 @@
+*.txt
+*.egg-info
+*.jemma
+build/*
+__pycache__/*
+*.pyc
+.pypirc
+*.tar.gz
+*.whl
+.venv/
+uv.lock
