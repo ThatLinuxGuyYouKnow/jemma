@@ -1,6 +1,6 @@
-from jemma.main.inference.main import get_model_response 
-from jemma.classes.agentic_response import AgentResponse
-from jemma.enums.response_enums import ResponseType
+from jemma.inference import get_model_response
+from jemma.agentic_response import AgentResponse
+from jemma.response_enums import ResponseType
 
 
 class AgentLoop():
@@ -62,6 +62,11 @@ class AgentLoop():
                             type= ResponseType.TOOL_CALL,
                             content= tool_call['name'] 
                     )
+                        
+                    try ToolOrchestrator.execute():
+                        ## do some stuff if successful, like yield the result of the tc
+
+                    catch 
 
 
 

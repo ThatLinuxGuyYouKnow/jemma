@@ -1,6 +1,6 @@
 from dataclasses import dataclass
 from typing import Any
-from jemma.enums.response_enums import ResponseType
+from jemma.response_enums import ResponseType
 
 @dataclass
 class AgentResponse:
