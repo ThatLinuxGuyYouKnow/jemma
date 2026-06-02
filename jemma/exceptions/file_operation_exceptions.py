@@ -34,13 +34,12 @@ class BadFileWriteException(FileOperationError):
         self,
         model_error_feedback: str,
         file_path: str = "",
-        offset: int | None = None,
+        starting_line: int | None = None,
+        bottom_line: int | None = None,
         user_facing_error_text: str = "Could not write to file",
     ):
-        details = _build_details(file_path=file_path, offset=offset)
-        super().__init__(f"{model_error_feedback}{details}", user_facing_error_text)
-        self.file_path = file_path
-        self.offset = offset
+        details = _build_details(file_path=file_path, starting_line= starting_line, bottom_line= bottom_line)
+
 
 
 class FileNonExistentException(FileOperationError):
