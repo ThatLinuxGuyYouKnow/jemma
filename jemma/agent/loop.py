@@ -57,11 +57,13 @@ class AgentLoop():
                     }
 
 
-                self.messages.append({'role':'assistant',
-                                       'content':full_assistant_text,
-                                       'tool_call': accumulated_tool_calls})
+           
                             
                 if accumulated_tool_calls:
+
+                    self.messages.append({'role':'assistant',
+                                       'content':full_assistant_text,
+                                       'tool_call': accumulated_tool_calls})
 
                     for tool_call in accumulated_tool_calls:
 
@@ -73,9 +75,9 @@ class AgentLoop():
                         
                    
 
-                    tool_results: str = ToolOrchestrator.execute_tool_calls(accumulated_tool_calls= accumulated_tool_calls)
+                    tool_results: list = ToolOrchestrator.execute_tool_calls(accumulated_tool_calls= accumulated_tool_calls)
 
-                    self.start_loop(new_message= tool_results, model_id= model_id, message_type= MessageType.TOOL, conversation_history= self.messages)
+                    yield from self.start_loop(new_message= tool_results, model_id= model_id, message_type= MessageType.TOOL, conversation_history= self.messages)
                     
                         
                
