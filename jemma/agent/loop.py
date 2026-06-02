@@ -71,18 +71,14 @@ class AgentLoop():
                             content= tool_call['name'] 
                     )
                         
+                   
 
-                    try:
+                    tool_results: str = ToolOrchestrator.execute_tool_calls(accumulated_tool_calls= accumulated_tool_calls)
 
-                        tool_results: list = ToolOrchestrator.execute_tool_calls(accumulated_tool_calls= accumulated_tool_calls)
-
-                        self.start_loop(new_message= tool_results, model_id= model_id, message_type= MessageType.TOOL, conversation_history= self.messages)
-                        
+                    self.start_loop(new_message= tool_results, model_id= model_id, message_type= MessageType.TOOL, conversation_history= self.messages)
                     
-                    except Exception as e:
-
-                        return e.user_facing_error_text
-
+                        
+               
                         
 
 
