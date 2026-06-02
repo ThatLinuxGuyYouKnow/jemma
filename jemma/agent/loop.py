@@ -1,7 +1,8 @@
 from jemma.inference import get_model_response
 from jemma.agentic_response import AgentResponse
 from jemma.response_enums import ResponseType
-
+from jemma.services.tool_service import ToolOrchestrator
+from jemma.message_enum import MessageType
 
 class AgentLoop():
 
@@ -9,19 +10,21 @@ class AgentLoop():
         self.messages = []    
 
  
-    def start_loop(self, new_message: str, model_id : str):
+    def start_loop(self, new_message: str | None, conversation_history: list | None, model_id : str, message_type: MessageType ):
+
+        self.messages = conversation_history if conversation_history else []
 
         ## add the newest message from the user to the message stack
 
-        self.messages.append({'role':'user', 'content': new_message})
+        self.messages.append({'role':message_type.value, 'content': new_message})
 
         accumulated_tool_calls = {}
 
         response = get_model_response(messages= self.messages, model_id=model_id)
 
-        while True:
+        full_assistant_text : str = ''
 
-            for delta in response:
+        for delta in response:
 
                 if delta.content:
 
@@ -52,6 +55,11 @@ class AgentLoop():
                         "name":tool_call.function.name or '',
                         "arguments": tool_call.function.arguments
                     }
+
+
+                self.messages.append({'role':'assistant',
+                                       'content':full_assistant_text,
+                                       'tool_call': accumulated_tool_calls})
                             
                 if accumulated_tool_calls:
 
@@ -63,10 +71,20 @@ class AgentLoop():
                             content= tool_call['name'] 
                     )
                         
-                    try ToolOrchestrator.execute():
-                        ## do some stuff if successful, like yield the result of the tc
 
-                    catch 
+                    try:
+
+                        tool_results: list = ToolOrchestrator.execute_tool_calls(accumulated_tool_calls= accumulated_tool_calls)
+
+                        self.start_loop(new_message= tool_results, model_id= model_id, message_type= MessageType.TOOL, conversation_history= self.messages)
+                        
+                    
+                    except Exception as e:
+
+                        return e.user_facing_error_text
+
+                        
+
 
 
 
