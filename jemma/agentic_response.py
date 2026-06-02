@@ -15,4 +15,3 @@ class AgentResponse:
     """
     type: ResponseType
     content: Any
-    model_feedback: str
