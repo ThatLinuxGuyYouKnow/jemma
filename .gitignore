@@ -8,4 +8,6 @@ __pycache__/*
 *.tar.gz
 *.whl
 .venv/
-uv.lock
+uv.lockagent_loop.log
+
+agent_loop.log
