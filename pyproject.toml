@@ -13,6 +13,7 @@ dependencies = [
     "requests>=2.25.0",
     "colorama",
     "litellm>=0.1.202",
+    "textual",
 ]
 keywords = ["code", "code assistant", "gemini", "api"]
 classifiers = [
