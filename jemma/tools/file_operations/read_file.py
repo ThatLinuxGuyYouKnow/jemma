@@ -1,6 +1,8 @@
+from jemma.validators.file_operations_validators import validate_file_read_range, validate_file_exists
+from jemma.exceptions.file_operation_exceptions import FileOperationError,  FileNonExistentException
 
 
-def read_file_lines(file_path: str, start_line: int, end_line: int = None) -> str:
+def read_file_lines(file_path: str, start_line: int = 1, end_line: int = None) -> str:
     """
     Read a range of lines from a text file.
 
@@ -18,11 +20,18 @@ def read_file_lines(file_path: str, start_line: int, end_line: int = None) -> st
         ValueError: If start_line < 1 or end_line < start_line.
     """
 
-    ##First, we validate, this will be redundant when we implement a tool service
+    ##First, we validate, starting from the most severe error possible
+
+    if not validate_file_exists(file_path= file_path):
+        raise FileNonExistentException(file_path=file_path)
+    
+
     if start_line < 1:
-        raise ValueError("start_line must be >= 1")
-    if end_line is not None and end_line < start_line:
-        raise ValueError("end_line must be >= start_line")
+        raise FileOperationError(model_error_feedback= 'File reads have to start at least from the first line')
+    
+
+    if end_line is not None and not validate_file_read_range(first_line= start_line, last_line= end_line):
+        raise FileOperationError(model_error_feedback='Invalid file read range, end line must be greater than start line')
 
     with open(file_path, 'r', encoding='utf-8') as f:
         # Read all lines (lazy iteration would be more memory‑efficient for huge files,

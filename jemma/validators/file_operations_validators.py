@@ -1,3 +1,5 @@
+import os
+
 
 
 def validate_file_read_range(first_line: int, last_line: int) -> bool:
@@ -28,4 +30,16 @@ def validate_section_replacement(original_section: str, model_recalled_original_
         True if both strings are identical, False otherwise.
     """
     return original_section == model_recalled_original_section
+
+def validate_file_exists(file_path: str):
+
+    """
+    Simple check that a file exists
+    
+    Args:
+    
+        file_path: absolute path of the file
+        """
+
+    return os.path.exists(file_path)
 
