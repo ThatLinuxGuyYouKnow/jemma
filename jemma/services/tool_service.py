@@ -50,7 +50,7 @@ class ToolOrchestrator():
                 "tool_result": result_str
             })
 
-            return tool_call_results
+        return tool_call_results
 
 
 
